@@ -172,19 +172,47 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 		var refPath = "/events/" + eventName + "/team/" + teamID;
 		retrieveOnceFirebase(firebase, refPath, function(data)
 		{
-			$scope.updateScope("teamMembers", teamMembers);
-			$scope.updateScope("teamLeaders", teamLeaders);
-			$scope.updateScope("currentTeamSize", currentTeamSize);
-			$scope.updateScope("currentTeamLeaderSize", currentTeamLeaderSize);
-			$scope.updateScope("numPrettyGirls", numPrettyGirls);
-			$scope.updateScope("wantedSkills", wantedSkills);
-			$scope.updateScope("wantedPersonalities", wantedPersonalities);
-			$scope.updateScope("wantedHoroscopes", wantedHoroscopes);
+			// $scope.updateScope("teamMembers", teamMembers);
+			// $scope.updateScope("teamLeaders", teamLeaders);
+			// $scope.updateScope("currentTeamSize", currentTeamSize);
+			// $scope.updateScope("currentTeamLeaderSize", currentTeamLeaderSize);
+			// $scope.updateScope("numPrettyGirls", numPrettyGirls);
+			// $scope.updateScope("wantedSkills", wantedSkills);
+			// $scope.updateScope("wantedPersonalities", wantedPersonalities);
+			// $scope.updateScope("wantedHoroscopes", wantedHoroscopes);
+			//
+			// $scope.refreshViewRequestsReceived();
+			//
+			//
+			// $scope.$apply(); // force to refresh
+			console.log(refPath, data);
+			console.log(data.child("currentTeamSize"));
+			if ( data.child("currentTeamSize").val() != null ) {
+				console.log("has a team");
+		$scope.param.currentTeamSize = data.child("currentTeamSize").val();
+		$scope.refreshViewRequestsReceived();
+	}
 
-			$scope.refreshViewRequestsReceived();
+	if ( data.child("teamMembers").val() != null ) {
+		$scope.param.teamMembers = data.child("teamMembers").val();
+	}
+	if ( data.child("currentTeamLeaderSize").val() != null ) {
+		$scope.param.currentTeamLeaderSize = data.child("currentTeamLeaderSize").val();
+	}
+	if ( data.child("numPrettyGirls").val() != null ) {
+		$scope.param.numPrettyGirls = data.child("numPrettyGirls").val();
+	}
+	if ( data.child("teamLeaders").val() != null ) {
+		$scope.param.teamLeaders = data.child("teamLeaders").val();
+	}
+	if ( data.child("wantedHoroscopes").val() != null ) {
+		$scope.param.wantedHoroscopes = data.child("wantedHoroscopes").val();
+	}
+	if ( data.child("wantedPersonalities").val() != null ) {
+		$scope.param.wantedPersonalities = data.child("wantedPersonalities").val();
+	}
 
-
-			$scope.$apply(); // force to refresh
+	$scope.$apply(); // force to refresh
 		});
 
 	}
@@ -198,11 +226,13 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 
 	$scope.processRequest = function(r)
 	{
+			console.log($scope.param.teamMembers);
 		//$scope.test = "processRequest: " + r;
 		if( $scope.param.teamMembers.indexOf(r) < 0 &&
 			$scope.param.teamMembers.length + $scope.param.currentTeamLeaderSize < $scope.param.currentTeamSize  )
 		{
 			// Not exists, and the current number of team member is less than the preferred team size
+
 			$scope.param.teamMembers.push(r);
 
 			$scope.saveFunc();
@@ -352,19 +382,13 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 		event.$loaded().then( function(data){
 			outerloop:
 		  for( var mem in event){
-			  // console.log(mem);
 			  if(mem != null && typeof mem != "undefined"){
 					if ( typeof event[mem].selection != "undefined" && typeof event[mem].selection != "null"){
-					  // console.log(typeof event[mem].selection,"id",event[mem]["$id"] );
-
 					  for(var cteam in team){
-						  // console.log(team[cteam]["$id"]);
-						   if(typeof team[cteam]["$id"] != "undefined"){
-							  //  console.log(typeof team[cteam].teamMembers);
-								 if ( typeof team[cteam].teamMembers != "undefined" && typeof team[cteam].teamMembers != "null"){
-									// console.log(team[cteam]["$id"]);
-									if( team[cteam].teamMembers.length + team[cteam].teamLeaderSize < team[cteam].size){
-										// console.log(team[cteam].teamMembers);
+						     if(typeof team[cteam]["$id"] != "undefined"){
+							  	 if ( typeof team[cteam].teamMembers != "undefined" && typeof team[cteam].teamMembers != "null"){
+											if( team[cteam].teamMembers.length + team[cteam].currentTeamLeaderSize < team[cteam].currentTeamSize){
+										// console.log("have space");
 										event[mem].selection =[];
 										firebase.database().ref("/events/"+getURLParameter("q") +"/member/" + event[mem]["$id"] ).child('selection').set(null);
 
@@ -376,13 +400,14 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 									}
 								 }
 								else{
+									// console.log("teammember not defined");
 									event[mem].selection =[];
 									firebase.database().ref("/events/"+getURLParameter("q") +"/member/" + event[mem]["$id"] ).child('selection').set(null);
 									team[cteam].teamMembers=[];
 									team[cteam].teamMembers.push(event[mem]["$id"]);
 									firebase.database().ref("/events/"+getURLParameter("q") +"/team/" + team[cteam]["$id"] ).child('teamMembers').set(
 										team[cteam].teamMembers);
-
+										continue outerloop;
 								}
 
 							}
@@ -421,6 +446,9 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 	}
 
 	$scope.createteam = function(){
+
+		if($scope.uid){}else{console.log("log in please");return;}
+
 		console.log(
 			$scope.member.map(function(e){return e.$id;}).indexOf($scope.uid)
 		);
@@ -428,15 +456,17 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 
 		var refPath = "/events/"+getURLParameter("q") + "/member/"+ $scope.uid;
 		var ref = firebase.database().ref(refPath);
-
 		$scope.profile = getProfile($scope.uid);
 		$scope.profile.$loaded().then(function(data){
+			if(typeof $scope.profile["name"] == "undefined"){console.error("Please sign in");return;}
 			if($scope.member.map(function(e){return e.$id;}).indexOf($scope.uid) <= -1){
 			var newData = {
 				'name': $scope.profile["name"],
 			};
 
 			ref.set(newData, function(){});
+			$scope.param.currentTeamLeaderSize = 1;
+			$scope.param.teamLeaders.push($scope.uid);
 			$scope.saveFunc();
 			}
 		});
