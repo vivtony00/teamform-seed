@@ -1,6 +1,6 @@
 describe('Test admin.js', function() {
 
-  var $controller,$firebaseAuth;
+  var $controller,$firebaseAuth,$firebaseObject,$firebaseArray;
   beforeEach(function(){
      module('teamform-admin-app');
 
@@ -34,6 +34,7 @@ describe('Test admin.js', function() {
          $controller= _$controller_;
          $firebaseAuth= _$firebaseAuth_;
          $firebaseObject = _$firebaseObject_;
+         $firebaseArray = _$firebaseArray_;
        }
      );
    });

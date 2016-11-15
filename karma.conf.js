@@ -17,8 +17,11 @@ module.exports = function(config) {
 	exclude: [
     'js/*.min.js',
     'js/firechat-ui.js',
+    'js/firechat.js',
     'js/firebase.js',
-    'js/jquery.parallax-1.1.3-min.js'
+    'js/jquery.parallax-1.1.3-min.js',
+    'js/index.js',
+    'unit_tests/firechat_test.js'
 	],
 	preprocessors: {
 		 'js/site.js' : ['coverage'],

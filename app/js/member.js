@@ -173,8 +173,7 @@ angular.module('teamform-member-app', ['firebase'])
           console.error("Error:", error);
         });
         return $scope.profile;
-    }
-
+  };
 
 	$scope.skillsmatch = function() {
 
