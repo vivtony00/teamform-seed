@@ -12,7 +12,7 @@ module.exports = function(config) {
 	  'lib/firebase.js',
 	  'lib/angularfire.min.js',
 	  'js/*.js',
-      'unit_tests/*.js'
+      'unit_tests/firechat_test.js'
     ],
 	exclude: [
     'js/*.min.js',
