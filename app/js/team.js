@@ -41,7 +41,8 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 		"numPrettyGirls": 0,
 		"wantedSkills":[],
 		"wantedPersonalities":[],
-		"wantedHoroscopes": []
+		"wantedHoroscopes": [],
+		"desc": ''
 
 	};
 
@@ -133,7 +134,8 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 				'numPrettyGirls': $scope.param.numPrettyGirls,
 				'wantedSkills': $scope.param.wantedSkills,
 				'wantedPersonalities': $scope.param.wantedPersonalities,
-				'wantedHoroscopes': $scope.param.wantedHoroscopes
+				'wantedHoroscopes': $scope.param.wantedHoroscopes,
+				'desc': $scope.param.desc
 			};
 
 			var refPath = "events/" + getURLParameter("q") + "/team/" + teamID;
@@ -185,34 +187,38 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 			//
 			//
 			// $scope.$apply(); // force to refresh
-			console.log(refPath, data);
-			console.log(data.child("currentTeamSize"));
+			
+			if ( data.child("teamMembers").val() != null ) {
+			$scope.param.teamMembers = data.child("teamMembers").val();
+			}
+			if ( data.child("currentTeamLeaderSize").val() != null ) {
+				$scope.param.currentTeamLeaderSize = data.child("currentTeamLeaderSize").val();
+			}
+			if ( data.child("numPrettyGirls").val() != null ) {
+				$scope.param.numPrettyGirls = data.child("numPrettyGirls").val();
+			}
+			if ( data.child("teamLeaders").val() != null ) {
+				$scope.param.teamLeaders = data.child("teamLeaders").val();
+			}
+			if ( data.child("wantedHoroscopes").val() != null ) {
+				$scope.param.wantedHoroscopes = data.child("wantedHoroscopes").val();
+			}
+			if ( data.child("wantedPersonalities").val() != null ) {
+				$scope.param.wantedPersonalities = data.child("wantedPersonalities").val();
+			}
+			
+			if ( data.child("desc").val() != null ) {
+				$scope.param.desc = data.child("desc").val();
+			}
+			//console.log(refPath, data);
+			//console.log(data.child("currentTeamSize"));
 			if ( data.child("currentTeamSize").val() != null ) {
 				console.log("has a team");
-		$scope.param.currentTeamSize = data.child("currentTeamSize").val();
-		$scope.refreshViewRequestsReceived();
-	}
+				$scope.param.currentTeamSize = data.child("currentTeamSize").val();
+				$scope.refreshViewRequestsReceived();
+			}
 
-	if ( data.child("teamMembers").val() != null ) {
-		$scope.param.teamMembers = data.child("teamMembers").val();
-	}
-	if ( data.child("currentTeamLeaderSize").val() != null ) {
-		$scope.param.currentTeamLeaderSize = data.child("currentTeamLeaderSize").val();
-	}
-	if ( data.child("numPrettyGirls").val() != null ) {
-		$scope.param.numPrettyGirls = data.child("numPrettyGirls").val();
-	}
-	if ( data.child("teamLeaders").val() != null ) {
-		$scope.param.teamLeaders = data.child("teamLeaders").val();
-	}
-	if ( data.child("wantedHoroscopes").val() != null ) {
-		$scope.param.wantedHoroscopes = data.child("wantedHoroscopes").val();
-	}
-	if ( data.child("wantedPersonalities").val() != null ) {
-		$scope.param.wantedPersonalities = data.child("wantedPersonalities").val();
-	}
-
-	$scope.$apply(); // force to refresh
+			$scope.$apply(); // force to refresh
 		});
 
 	}
@@ -315,20 +321,26 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 			$scope.saveFunc();
 		}
 	}
+	
+	$scope.changeDesc = function(desc)
+	{
+		$scope.desc = desc;
+		$scope.saveFunc();
+	}
 
 	$scope.removeWantedSkill = function(skillString = null)
 	{
-			$scope.removeString(skillString, $scope.param.wantedSkills);
+		$scope.removeString(skillString, $scope.param.wantedSkills);
 	}
 
 	$scope.removeWantedPersonalities = function(personalityString = null)
 	{
-			$scope.removeString(personalityString, $scope.param.wantedPersonalities);
+		$scope.removeString(personalityString, $scope.param.wantedPersonalities);
 	}
 
 	$scope.removeWantedHoroscopes = function(horoscopeString = null)
 	{
-			$scope.removeString(horoscopeString, $scope.param.wantedHoroscopes);
+		$scope.removeString(horoscopeString, $scope.param.wantedHoroscopes);
 	}
 
 	$scope.removeString = function(stringToBeRemoved, parameter)

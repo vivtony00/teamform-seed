@@ -22,6 +22,7 @@ angular.module('teamform-app', ['firebase'])
     if($scope.loginValidation()==false){
       return false;
     }
+    $scope.auth = $firebaseAuth();
     $scope.auth.$createUserWithEmailAndPassword($scope.username, $scope.password)
     .catch(function(error) {
       $scope.error = error.message;
@@ -32,8 +33,10 @@ angular.module('teamform-app', ['firebase'])
     if($scope.loginValidation()==false){
       return false;
     }
+    $scope.auth = $firebaseAuth();
     // console.log("$scope.username,$scope.password",$scope.username,$scope.password);
-    $scope.auth.signInWithEmailAndPassword($scope.username, $scope.password).catch(function(error){
+    firebase.auth().signInWithEmailAndPassword($scope.username, $scope.password).catch(function(error){
+    // $scope.auth.signInWithEmailAndPassword($scope.username, $scope.password).catch(function(error){
       $scope.error = error.message;
       console.error("email Login failed(ng):", error);
     });

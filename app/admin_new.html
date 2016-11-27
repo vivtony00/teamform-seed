@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" ng-app="teamform-admin-app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="teamform, team">
+        <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>teamform - A real-time online team forming app</title>
+
+    <!-- Customized libraries shared by pages -->
+    <script src="js/site.js"></script>
+
+    <!-- Press Start 2P Font -->
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&subset=cyrillic,greek,latin-ext" rel="stylesheet">
+
+    <!-- Lato Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Bootstrap styles -->
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Font Awesome -->
+    <link href="css/font-awesome.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Lightbox styles -->
+    <link href="lightbox/css/lightbox.css" rel="stylesheet">
+
+    <!-- Charts styles -->
+    <link href="css/morris.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Loaders styles -->
+    <link href="loaders.css-master/loaders.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles -->
+    <link href="css/styles.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Responsive styles -->
+    <link href="css/responsive.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Modernizr -->
+    <script type="text/javascript" src="js/modernizr.custom.js"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.png" type="image/png">
+<style>
+    h1 {
+  /* WebKit (Safari/Chrome) Only */
+  -webkit-text-stroke: 0.1px #FFD500;
+  
+  /* If we weren't using text-shadow, we'd set a fallback color
+     and use this to set color instead
+    -webkit-text-fill-color: white; */
+  
+  color:#FFD500;
+  
+  text-shadow:
+    3px 3px 0 grey,
+    /* Simulated effect for Firefox and Opera
+       and nice enhancement for WebKit */
+   -1px -1px 0 #111,  
+    1px -1px 0 #111,
+   -1px  1px 0 #111,
+    1px  1px 0 #111;
+}
+    
+    .myButton {
+	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
+	-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
+	box-shadow: 0px 1px 0px 0px #fff6af;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
+	background:-moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:-webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:-o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:-ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
+	background-color:#ffec64;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
+	background:-moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:-webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:-o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:-ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
+	background-color:#ffab23;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+    
+    </style>
+  
+</head>
+
+<body data-spy="scroll" data-offset="122" data-target="#main-menu" data-skrollr="true">
+
+    <div class="loader-overlay">
+        <div class="loader">
+            <div class="loader-inner pacman">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <h3 class="loader-text">Loading</h3>
+        </div>
+    </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="LoginCtrl">
+        <div class="triangle">
+            <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+        </div>
+        <div class="header-top clearfix">
+            <div class="container">
+                <ul class="list-inline social-links">
+                    <!-- <li>
+                        <a href="#" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a href="#" title="Skype"><i class="fa fa-skype"></i></a>
+                    </li><li class="hidden-xxs">
+                        <a href="#" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                    </li><li class="hidden-xxs">
+                        <a href="#" title="Google +"><i class="fa fa-google-plus"></i></a>
+                    </li><li>
+                        <a href="#" title="Youtube"><i class="fa fa-youtube-play"></i></a>
+                    </li> -->
+                    <li>
+                        <a href="http://github.com/vivtony00/teamform-seed" title="github"><i class="fa fa-github"></i></a>
+                    </li>
+                </ul>
+                <div class="header-top-dropdown">
+                    <div class="btn-group dropdown">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-search"></i> Search</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <form class="search-box" action="#">
+                                    <div class="form-group has-feedback no-margin">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                        <i class="fa fa-search form-control-feedback"></i>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" ng-hide="logedin">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-user"></i> Login</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" >
+                            <li>
+                                <form class="login-form" ng-submit="emailLogin();">
+                                  {{uid}}{{logedin}}
+                                  <div ng-if="message" class="alert alert-info">{{ message }}</div>
+                                  <div ng-if="error" class="alert alert-danger">{{ error }}</div>
+                                    <div class="form-group has-feedback">
+                                        <input id="input_email" type="text" class="form-control" placeholder="Username" ng-model="username" required>
+                                        <i class="fa fa-user form-control-feedback"></i>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <input id="input_password" type="password" class="form-control" placeholder="Password" ng-model="password" required >
+                                        <i class="fa fa-lock form-control-feedback"></i>
+                                    </div>
+                                    <button id="btn_login_email" type="submit" class="btn btn-default btn-block">
+                                        <span class="text">Log In <i class="fa fa-arrow-right"></i></span>
+                                    </button>
+                                    <h3 class="text-center">or</h3>
+                                    <button id="btn_create_email_acc" type="submit" class="btn btn-default btn-block">
+                                        <span class="text">Sign Up <i class="fa fa-arrow-right"></i></span>
+                                    </button>
+                                    <p class="text-center"><a href="#" title="Reset password">Forgot your password?</a></p>
+                                    <h3 class="text-center">Sign in with your social account</h3>
+                                    <ul class="list-inline text-center">
+                                        <li>
+                                            <a href="#" id="btn_login_fb" title="Login with Facebook"><span class="icon-circle-small"><i class="fa fa-facebook"></i></span></a>
+                                        </li><li>
+                                            <a href="#" title="Login with Google +"><span class="icon-circle-small"><i class="fa fa-google-plus"></i></span></a>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" ng-show="logedin">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-user"></i> {{profile.name}}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" >
+                            <a href="profile.html"><img src="{{profile.pic}}" class="img-responsive img-circle " alt="profile picture"></a>
+                          <li>
+                            <a href="profile.html">Profile</a>
+                          </li>
+                          <li>
+                            <a href="myevent.html">(TODO)My event</a>
+                          </li>
+                          <li>
+                            <button id="btn_login_out" type="submit" class="btn btn-default btn-block" ng-click="signOut();">Logout</button>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" title="TeamforM">
+                    <i class="glyphicon glyphicon-tower" aria-hidden="true"></i><span class="yellow">T</span>eamfor<span class="yellow">M</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="main-menu">
+             <!--   <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#home">
+                            <span class="main-link">Home</span>
+                            <span class="additional-info-link bracket">
+                                start here
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#about">
+                            <span class="main-link">About</span>
+                            <span class="additional-info-link bracket">
+                                what it is
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#flow">
+                            <span class="main-link">Getting started</span>
+                            <span class="additional-info-link bracket">
+                                how to use
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#team">
+                            <span class="main-link">Team</span>
+                            <span class="additional-info-link bracket">
+                                our works
+                            </span>
+                        </a>
+                    </li>
+                </ul>-->
+            </div>
+        </div>
+    </div>
+ <div class="section-home" id="home">
+        <div class="overlay"></div>
+        <canvas class="particles" id="particles"></canvas>
+        <div class="container">
+            <div class="home-container"> 
+                <div class="clearfix"></div>
+               
+
+   <br>
+
+   <div class="text-center">
+<!--<strong><span class="yellow">  <h1>Administrative Page</h1> </span></strong>
+    -->
+               <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1"> Administrative Page</h2>
+            
+
+
+
+      <h2 id="text_event_name"></h2>
+
+      <div id="admin_page_controller" ng-controller="AdminCtrl">
+
+         <div class="row">
+
+            <div class="col-md-2 col-xs-2"></div>
+
+            <div class="col-md-8 col-xs-8 text-left panel">
+
+
+
+             <strong>Minimum Team Size:</strong>
+
+               <span class="badge">
+                 {{param.minTeamSize}}</span>
+
+               <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);" style="color:Black;"></span></button>
+
+                <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);" style="color:Black;"></span></button>
+
+            <br><br>
+
+             <strong>Maximum Team Size: </strong>
+
+               <span class="badge">
+                 {{param.maxTeamSize}}</span>
+
+               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);" style="color:Black;"></span></button>
+
+                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);" style="color:Black;"></span></button>
+
+            <br><br>
+
+             <button type="button" class="myButton" ng-click="saveFunc();"  style="background-color: #FFD500; color:black; float: left; height:30px"><strong>Create/Modify</strong></button>
+
+
+            </div>
+
+             <div class="col-md-2 col-xs-2"></div>
+
+         </div>
+
+
+         <hr>
+
+		 <div class="row">
+			 <div class="col-md-6 col-xs-6 text-right" >
+
+				<h3>All teams:</h3>
+				<ul ng-repeat="t in team">
+					<li>
+
+						User ID: {{t.$id}}  <br>
+						Preferred team size: <span class="badge">{{t.size}}</span> <br>
+						Current team members: {{t.teamMembers}}
+
+					</li>
+
+				</ul>
+
+			 </div>
+
+			 <div class="col-md-6 col-xs-6 text-left">
+
+
+			  <h3>All members:</h3>
+			  <ul ng-repeat="m in member">
+
+				  <li>ID = {{m.$id}} <br>
+				  Name = {{m.name}} <br>
+				  request to join the following teams: {{m.selection | json}}</li>
+			  </ul>
+
+			 </div>
+		 </div>
+
+
+      </div>
+   </div>
+
+                
+                
+                
+                </div>
+                    </div>
+                        </div>
+               
+                
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+
+
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <!-- jQuery parallax -->
+    <script type="text/javascript" src="js/jquery.parallax-1.1.3-min.js"></script>
+
+    <!-- jQuery countdown -->
+    <script type="text/javascript" src="js/countdown.min.js"></script>
+
+    <!-- Lightbox -->
+    <script type="text/javascript" src="lightbox/js/lightbox.min.js"></script>
+
+    <!-- skrollr -->
+    <script type="text/javascript" src="js/skrollr.min.js"></script>
+
+    <!-- raphael -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+
+    <!-- morris charts -->
+    <script type="text/javascript" src="js/morris.min.js"></script>
+
+    <!-- particles -->
+    <script src="js/TweenLite.min.js"></script>
+    <script src="js/EasePack.min.js"></script>
+    <script src="js/rAF.min.js"></script>
+    <script src="js/particles.min.js"></script>
+
+    <!-- Custom javascript -->
+    <script type="text/javascript" src="js/custom.min.js"></script>
+
+    <!-- Main page javascript -->
+    <script type="text/javascript" src="js/main.min.js"></script>
+
+    <!-- Angular and Angular-route libraries (v1.5.7) -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="lib/firebase.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <!-- Log in control -->
+    <script src="js/login.js"></script>
+    <script src="js/index.js"></script>
+
+</body>
+</html>

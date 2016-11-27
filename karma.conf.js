@@ -21,7 +21,8 @@ module.exports = function(config) {
     'js/firebase.js',
     'js/jquery.parallax-1.1.3-min.js',
     'js/index.js',
-    'unit_tests/firechat_test.js'
+    'unit_tests/firechat_test.js',
+    'js/modernizr.custom.js'
 	],
 	preprocessors: {
 		 'js/site.js' : ['coverage'],

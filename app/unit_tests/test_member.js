@@ -53,10 +53,15 @@ describe('Test member.js', function() {
      });
 
     it ('test loadFunc function', function(){
+      $scope.userID='';
+      $scope.loadFunc();
       $scope.userID="asdasd";
       $scope.loadFunc();
     });
     it ('test saveFunc function', function(){
+      $scope.userID=null;
+      $scope.saveFunc();
+      $scope.userID="asdasd";
       var team1 = {
                 "currentTeamLeaderSize" : 1,
                 "currentTeamSize" : 5,
@@ -94,7 +99,40 @@ describe('Test member.js', function() {
 
     it ('test selectall function', function(){
       // spyOn($scope.team, "$loaded").and.callThrough();
-      $scope.selectall()
+
+      $scope.userID=null;
+      $scope.userName=null;
+      $scope.selectall();
+      var team1 = {
+                "$id":"team1",
+                "currentTeamLeaderSize" : 1,
+                "currentTeamSize" : 5,
+                "numPrettyGirls" : 0,
+                "teamLeaders" : [ "bzHk0FxZBMV0uZRO3Jy3mmwSc8J2" ],
+                "teamName" : "newTeam",
+                "wantedHoroscopes" : "Aries",
+                "wantedPersonalities" : "good",
+                "wantedSkills" : [ "CSS", "JavaScript", "HTML" ],
+                "personality":["Aries","ABC"],
+                "score":1
+              };
+      var team2 = {
+                "$id":"team2",
+                "currentTeamLeaderSize" : 1,
+                "currentTeamSize" : 5,
+                "numPrettyGirls" : 0,
+                "teamLeaders" : [ "bzHk0FxZBMV0uZRO3Jy3mmwSc8J2" ],
+                "teamName" : "newTeam",
+                "wantedHoroscopes" : "Aries",
+                "wantedPersonalities" : "good",
+                "wantedSkills" : [ "CSS", "JavaScript", "HTML" ],
+                "personality":["Aries","ABC"],
+                "score":2
+              }
+      $scope.teams=[team1,team2];
+      $scope.userID="1234";
+      $scope.userName="uName";
+      $scope.selectall();
       expect($scope.selection).not.toBeNull();
     });
     it ('test refreshTeams function', function(){
@@ -162,6 +200,7 @@ describe('Test member.js', function() {
       expect($scope.teams).not.toBeNull();
     });
     it ('test starmatch function', function(){
+      $scope.starmatch();
       var team1 = {
                 "currentTeamLeaderSize" : 1,
                 "currentTeamSize" : 5,
@@ -194,6 +233,11 @@ describe('Test member.js', function() {
       $scope.starmatch();
       expect($scope.teams).not.toBeNull();
     });
+    it ('test toggleSelection function', function(){
+      $scope.toggleSelection($scope.teams);
+      expect($scope.selection).not.toBeNull();
+    });
+
     it ('test largerthan function', function(){
       var team1 = {
                 "currentTeamLeaderSize" : 1,

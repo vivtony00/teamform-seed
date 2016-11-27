@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" ng-app="teamform-profile-app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="teamform, team">
+        <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>teamform - A real-time online team forming app</title>
+
+    <!-- Customized libraries shared by pages -->
+    <script src="js/site.js"></script>
+
+    <!-- Press Start 2P Font -->
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&subset=cyrillic,greek,latin-ext" rel="stylesheet">
+
+    <!-- Lato Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Bootstrap styles -->
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Font Awesome -->
+    <link href="css/font-awesome.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Lightbox styles -->
+    <link href="lightbox/css/lightbox.css" rel="stylesheet">
+
+    <!-- Charts styles -->
+    <link href="css/morris.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Loaders styles -->
+    <link href="loaders.css-master/loaders.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles -->
+    <link href="css/styles.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Responsive styles -->
+    <link href="css/responsive.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Modernizr -->
+    <script type="text/javascript" src="js/modernizr.custom.js"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.png" type="image/png">
+
+    
+       <style>
+    .myButton {
+	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
+	-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
+	box-shadow: 0px 1px 0px 0px #fff6af;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
+	background:-moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:-webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:-o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:-ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
+	background-color:#ffec64;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#333333;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
+	background:-moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:-webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:-o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:-ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
+	background-color:#ffab23;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+           
+           .myButton1 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f9f9f9), color-stop(1, #e9e9e9));
+	background:-moz-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:-webkit-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:-o-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:-ms-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e9e9e9',GradientType=0);
+	background-color:#f9f9f9;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.myButton1:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #e9e9e9), color-stop(1, #f9f9f9));
+	background:-moz-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:-webkit-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:-o-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:-ms-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9e9e9', endColorstr='#f9f9f9',GradientType=0);
+	background-color:#e9e9e9;
+}
+.myButton1:active {
+	position:relative;
+	top:1px;
+}
+
+           
+           
+</style>
+    
+    
+</head>
+
+<body data-spy="scroll" data-offset="122" data-target="#main-menu" data-skrollr="true">
+
+    <div class="loader-overlay">
+        <div class="loader">
+            <div class="loader-inner pacman">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <h3 class="loader-text">Loading</h3>
+        </div>
+    </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="LoginCtrl">
+        <div class="triangle">
+            <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+        </div>
+        <div class="header-top clearfix">
+            <div class="container">
+                <ul class="list-inline social-links">
+                    <!-- <li>
+                        <a href="#" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a href="#" title="Skype"><i class="fa fa-skype"></i></a>
+                    </li><li class="hidden-xxs">
+                        <a href="#" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                    </li><li class="hidden-xxs">
+                        <a href="#" title="Google +"><i class="fa fa-google-plus"></i></a>
+                    </li><li>
+                        <a href="#" title="Youtube"><i class="fa fa-youtube-play"></i></a>
+                    </li> -->
+                    <li>
+                        <a href="http://github.com/vivtony00/teamform-seed" title="github"><i class="fa fa-github"></i></a>
+                    </li>
+                </ul>
+                <div class="header-top-dropdown">
+                    <div class="btn-group dropdown">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-search"></i> Search</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <form class="search-box" action="#">
+                                    <div class="form-group has-feedback no-margin">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                        <i class="fa fa-search form-control-feedback"></i>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" ng-hide="logedin">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-user"></i> Login</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" >
+                            <li>
+                                <form class="login-form" ng-submit="emailLogin();">
+                                  {{uid}}{{logedin}}
+                                  <div ng-if="message" class="alert alert-info">{{ message }}</div>
+                                  <div ng-if="error" class="alert alert-danger">{{ error }}</div>
+                                    <div class="form-group has-feedback">
+                                        <input id="input_email" type="text" class="form-control" placeholder="Username" ng-model="username" required>
+                                        <i class="fa fa-user form-control-feedback"></i>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <input id="input_password" type="password" class="form-control" placeholder="Password" ng-model="password" required >
+                                        <i class="fa fa-lock form-control-feedback"></i>
+                                    </div>
+                                    <button id="btn_login_email" type="submit" class="btn btn-default btn-block">
+                                        <span class="text">Log In <i class="fa fa-arrow-right"></i></span>
+                                    </button>
+                                    <h3 class="text-center">or</h3>
+                                    <button id="btn_create_email_acc" type="submit" class="btn btn-default btn-block">
+                                        <span class="text">Sign Up <i class="fa fa-arrow-right"></i></span>
+                                    </button>
+                                    <p class="text-center"><a href="#" title="Reset password">Forgot your password?</a></p>
+                                    <h3 class="text-center">Sign in with your social account</h3>
+                                    <ul class="list-inline text-center">
+                                        <li>
+                                            <a href="#" id="btn_login_fb" title="Login with Facebook"><span class="icon-circle-small"><i class="fa fa-facebook"></i></span></a>
+                                        </li><li>
+                                            <a href="#" title="Login with Google +"><span class="icon-circle-small"><i class="fa fa-google-plus"></i></span></a>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" ng-show="logedin">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-user"></i> {{profile.name}}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" >
+                            <a href="profile.html"><img src="{{profile.pic}}" class="img-responsive img-circle " alt="profile picture"></a>
+                          <li>
+                            <a href="profile.html">Profile</a>
+                          </li>
+                          <li>
+                            <a href="myevent.html">(TODO)My event</a>
+                          </li>
+                          <li>
+                            <button id="btn_login_out" type="submit" class="btn btn-default btn-block" ng-click="signOut();">Logout</button>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" title="TeamforM">
+                    <i class="glyphicon glyphicon-tower" aria-hidden="true"></i><span class="yellow">T</span>eamfor<span class="yellow">M</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="main-menu">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+   
+        <div class="overlay"></div>
+        <canvas class="particles" id="particles"></canvas>
+        <div class="container">
+            <div class="home-container">
+                 <div class="text-center">
+               <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1"> Profile Page</h2>
+            </div>
+           <div class="container" ng-controller="profileinput" >
+
+          <div class="row col-md-3 all ">
+
+
+                <!-- <img src={{profile.pic}} class="img-responsive img-circle" alt="Responsive image">
+                  <input type="file" id="file" name="file">
+                  <button type="btn btn-primary" id="uploadButton" ng-click="uploadFile()" >SUBMIT</button>
+                </img> -->
+
+                <!-- <input type="image" src="img/propic.jpg" class="img-responsive img-circle" alt="Responsive image" />
+
+
+              </input> -->
+              <Label for="file">
+                <img src="{{profile.pic}}" class="img-responsive img-circle " alt="Responsive image">
+              </Label>
+                <input type="file" id="file" name="file" style="visibility:hidden;" >
+                <div class="col-md-6 updateProfileview" ng-hide="check">
+                  <button class="myButton1" id="uploadButton" ng-click="uploadFile();"  style="height:30px; width:120px">
+          					<span class="glyphicon glyphicon-ok"></span> SAVE
+
+          				</button>
+                </div>
+                <div class="col-md-6 updateProfileview" ng-hide="check">
+                  <button class="myButton1" type="button" ng-click="removeFile();"  style="height:30px; width:130px">
+          					<span class="glyphicon glyphicon-ok"></span> Remove
+
+          				</button>
+                </div>
+
+              <div class="col-md-6 Profileview">
+                <button class="myButton1" type="button" ng-click="likeFunction();"  style="height:30px; width:120px">
+        					<span class="glyphicon glyphicon-thumbs-up"></span> Likes
+        					<span class="badge"> {{profile.like.length}}</span>
+
+        				</button>
+
+              </div>
+
+              <div class="col-md-6 updateProfileview" ng-hide = "check">
+                <input type="text"  data-role="tagsinput" ng-model="SkillTemp" placeholder="Add skills" />
+                <button class="myButton" type="add" ng-click="addSkill()  style="height:30px; width:120px"">AddSkill</button>
+
+
+              </div>
+
+
+              </div>
+
+
+
+        <div class="row col-md-9 all ">
+<div class="row col-md-offset-3 ">
+      <div class="form-group">
+        <label class="col-md-8 control-label">Username</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="name" ng-model="input.name" placeholder="Name" value="profile.name" required>
+              <span id="helpUsername" class="help-block" >
+                Length limited to 5-20 characters.
+              </span>
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.name}}</p>
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <label class="col-md-4 control-label">Gender</label>
+        <div class="col-md-8">
+
+            <input class="form-control" type="text" id="gender" ng-model="input.gender" placeholder="Gender" value ="{{Gender}}" required>
+
+
+        </div>
+      </div> -->
+      <div class="form-group">
+                        <label class="col-md-8 control-label">Gender</label>
+                        <div class="col-md-8 updateProfileview">
+                            <!-- <p class="form-control-static profileView">Male</p> -->
+
+                                <label class="radio">
+                                    <input type="radio" name="gender" value="Male" ng-model = "input.gender" checked> Male
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="gender" value="Female" ng-model = "input.gender"> Female
+                                </label>
+
+                        </div>
+                        <div class="col-md-8 Profileview">
+                          <p>{{profile.gender}}</p>
+                        </div>
+
+                    </div>
+
+        <!-- <div class="col-md-8">
+          <p>HI</p>
+        </div> -->
+
+      <div class="form-group">
+        <label class="col-md-8 control-label">Birth Date</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="birth" ng-model="input.birth" placeholder="Birth" required>
+
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.birth}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-8 control-label">Zodiac</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="star" ng-model="input.star" placeholder="Zodiac" required>
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.star}}</p>
+        </div>
+      </div>
+    
+     
+    <div class="form-group">
+        <label class="col-md-8 control-label">Location</label>
+        
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="location" ng-model="input.location" placeholder="location" required>
+
+        </div>
+     
+          
+        <div class="col-md-8 Profileview">
+          <p>{{profile.location}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-8 control-label">Personality</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <button class="myButton" ng-click="showme=true;ShowQ()"  style="height:30px; width:90px" >TEST</button>
+              <p>{{profile.personality}}</p>
+
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.personality}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-8 control-label">Skill</label>
+        <div class="col-md-8 updateProfileview">
+        <div class="col-md-2 "  ng-repeat="p in profile.skills">
+
+          <button class="myButton1" type="button" ng-click="removeSkill(p)" style="width:120px" >
+            <span class="btn-label" ></span> {{p}}
+            <span class="glyphicon glyphicon-remove"></span>
+
+          </button>
+        </div>
+      </div>
+      <div class="col-md-8 Profileview">
+        <div class="col-md-1 " ng-repeat="p in profile.skills">
+          <button class="control-label" style="backgroundcolor:orange">{{p}}</button>
+        </div>
+      </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-8 control-label">Description</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="description" ng-model="input.description" placeholder="description" required>
+              <span id="helpIntroduction" class="help-block updateProfileView" style="display: block;">Max 100 characters allowed.</span>
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.description}}</p>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+           <div class="col-md-offset-6 updateProfileview" ng-hide = "check" >
+
+             <button class="myButton" type="save" ng-click="saveProfile();showProfile() " style="height:30px; width:90px">Save</button>
+                 <button class="myButton" type="save" ng-click="saveProfile();editProfile()"  style="height:30px; width:90px">Edit</button>
+
+           </div>
+          
+
+         </div>
+
+
+
+</div>
+<div id="test" class="col-md-6 onlytest" ng-hide="check">
+
+
+    <div class="container" ng-show="showme">
+
+          <div id="title">
+            <h1>Personlity Test</h1>
+          </div>
+            <br>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" ng-model="ans" > {{option1}}
+            </label>
+            <br>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" ng-model="ans"> {{option2}}
+            </label>
+            <br>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" ng-model="ans"> {{option3}}
+            </label>
+            <br>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4" ng-model="ans"> {{option4}}
+            </label>
+            <br>
+            <br>
+
+            <button id="next" ng-click="nextQ()"  style="height:30px; width:90px">Next</button>
+            <button id="finish" ng-click="showAns()"  style="height:30px; width:90px">Finish</button>
+            {{ans}}
+            {{answer}}
+
+            <!-- <div class='button' id='prev'><a href='#'>Prev</a></div>
+            <div class='button' id='start'> <a href='#'>Start Over</a></div> -->
+
+
+            <!-- <button class='' id='next'>Next</a></button>
+            <button class='' id='prev'>Prev</a></button>
+            <button class='' id='start'> Start Over</a></button> -->
+ </div>
+
+         </div>
+
+{{input}}
+</div>
+
+
+
+   
+           
+             
+                   
+       
+    
+ </div>
+         </div>
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+
+
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <!-- jQuery parallax -->
+    <script type="text/javascript" src="js/jquery.parallax-1.1.3-min.js"></script>
+
+    <!-- jQuery countdown -->
+    <script type="text/javascript" src="js/countdown.min.js"></script>
+
+    <!-- Lightbox -->
+    <script type="text/javascript" src="lightbox/js/lightbox.min.js"></script>
+
+    <!-- skrollr -->
+    <script type="text/javascript" src="js/skrollr.min.js"></script>
+
+    <!-- raphael -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+
+    <!-- morris charts -->
+    <script type="text/javascript" src="js/morris.min.js"></script>
+
+    <!-- particles -->
+    <script src="js/TweenLite.min.js"></script>
+    <script src="js/EasePack.min.js"></script>
+    <script src="js/rAF.min.js"></script>
+    <script src="js/particles.min.js"></script>
+
+    <!-- Custom javascript -->
+    <script type="text/javascript" src="js/custom.min.js"></script>
+
+    <!-- Main page javascript -->
+    <script type="text/javascript" src="js/main.min.js"></script>
+
+    <!-- Angular and Angular-route libraries (v1.5.7) -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="lib/firebase.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <!-- Log in control -->
+    <script src="js/login.js"></script>
+    <script src="js/index.js"></script>
+
+</body>
+</html>

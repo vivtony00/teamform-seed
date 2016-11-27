@@ -4,14 +4,21 @@ $(document).ready(function(){
 	$('#text_event_name').text("Error: Invalid event name ");
 	var eventName = getURLParameter("q");
 	if (eventName != null && eventName !== '' ) {
-		$('#text_event_name').text("Event name: " + eventName);
+		$('#text_event_name').text("Event: " + eventName);
 		$('#member_page_controller').show();
 	}
-
+	var o = new Date
+		, r = ("0" + (o.getDate() + 3)).slice(-2)
+		, s = ("0" + (o.getMonth() + 1)).slice(-2)
+		, n = o.getFullYear()
+		, i = n + "/" + s + "/" + r;
+	$("#clock").countdown({
+			date: i
+	})
 });
 
-angular.module('teamform-member-app', ['firebase'])
-.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$firebaseAuth","orderByFilter", function($scope, $firebaseObject, $firebaseArray, $firebaseAuth, orderBy) {
+var app = angular.module('teamform-member-app', ['firebase']);
+app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$firebaseAuth","orderByFilter", function($scope, $firebaseObject, $firebaseArray, $firebaseAuth, orderBy) {
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
 		// TODO: implementation of MemberCtrl
@@ -189,11 +196,11 @@ angular.module('teamform-member-app', ['firebase'])
 		 			var team = new Array();
 		 			team[teamindex] = $scope.teams[teamindex];
 		 			team[teamindex].score = 0;
-					console.log("team_skills",$scope.teams[teamindex].skills);
+					console.log("team_skills",$scope.teams[teamindex].wantedSkills);
 		 			for (skillsindex=0; skillsindex< $scope.profile.skills.length; skillsindex++) {
-			        	if (team[teamindex].skills){
+			        	if (team[teamindex].wantedSkills){
 			        		console.log("skills exists");
-				        	if(team[teamindex].skills.indexOf($scope.profile.skills[skillsindex]) > -1) {
+				        	if(team[teamindex].wantedSkills.indexOf($scope.profile.skills[skillsindex]) > -1) {
 				        		console.log("if they are the same");
 				        		team[teamindex].score++;}
 			        	}
@@ -222,10 +229,10 @@ angular.module('teamform-member-app', ['firebase'])
 	 				team[teamindex] = $scope.teams[teamindex];
 	 				team[teamindex].score = 0;
 
-	        		if (team[teamindex].personality){
+	        		if (team[teamindex].wantedPersonalities){
 	        			console.log("personality exists");
 
-	        			if(team[teamindex].personality.indexOf($scope.profile.personality) > -1) {
+	        			if(team[teamindex].wantedPersonalities.indexOf($scope.profile.personality) > -1) {
 	        				console.log("if they are the same");
 	        				team[teamindex].score++;
 	        			}
@@ -255,10 +262,10 @@ $scope.starmatch = function() {
 		 			team[teamindex] = $scope.teams[teamindex];
 		 			team[teamindex].score = 0;
 
-		        		if (team[teamindex].star){
+		        		if (team[teamindex].wantedHoroscopes){
 		        			console.log("star exists");
 
-		        			if(team[teamindex].star.indexOf($scope.profile.star) > -1) {
+		        			if(team[teamindex].wantedHoroscopes.indexOf($scope.profile.star) > -1) {
 		        				console.log("if they are the same");
 		        				team[teamindex].score++;
 		        			}
@@ -285,5 +292,91 @@ $scope.largerthan = function(val){
 	}
 	}
 }
+
+}]);
+
+
+app.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$firebaseAuth', function($scope, $firebaseObject, $firebaseArray, $firebaseAuth) {
+
+  // Call Firebase initialization code defined in site.js
+  initalizeFirebase();
+  $scope.message = null;
+  $scope.error = null;
+  $scope.uid = null;
+  $scope.logedin =false;
+  $scope.profile= null;
+  $scope.auth = $firebaseAuth();
+
+  $scope.loginValidation=function(){
+    if($scope.username==null&&$scope.password==null){
+      $scope.message = "Please fill in the email and password above";
+      return false;
+    }
+    return true;
+  }
+
+  $scope.emailAccCreate=function(){
+    if($scope.loginValidation()==false){
+      return false;
+    }
+    $scope.auth = $firebaseAuth();
+    $scope.auth.$createUserWithEmailAndPassword($scope.username, $scope.password)
+    .catch(function(error) {
+      $scope.error = error.message;
+    });
+  };
+
+  $scope.emailLogin=function(){
+    if($scope.loginValidation()==false){
+      return false;
+    }
+    $scope.auth = $firebaseAuth();
+    // console.log("$scope.username,$scope.password",$scope.username,$scope.password);
+    firebase.auth().signInWithEmailAndPassword($scope.username, $scope.password).catch(function(error){
+    // $scope.auth.signInWithEmailAndPassword($scope.username, $scope.password).catch(function(error){
+      $scope.error = error.message;
+      console.error("email Login failed(ng):", error);
+    });
+  };
+
+  $scope.fbLogin=function(){
+    $scope.auth.$signInWithPopup("facebook")
+    .catch(function(error) {
+      $scope.error = error.message;
+      console.error("FB Login fail(ng)",error);
+    });
+  };
+
+  $scope.signOut =function(){
+    $scope.auth.$signOut();
+  }
+
+  var getProfile = function(uid){
+    var path= "profile/"+uid;
+    var ref = firebase.database().ref(path);
+    $scope.profile = $firebaseObject(ref);
+    $scope.profile.$loaded()
+      .catch(function(error) {
+        $scope.error = error.message;
+        console.error("Error:", error);
+      });
+    return $scope.profile;
+  }
+  this.getProfile = getProfile;
+
+  $scope.auth.$onAuthStateChanged(function(firebaseUser) {
+    if (firebaseUser) {
+      $scope.message = "Signed in as:"+ firebaseUser.uid;
+      $scope.logedin =true;
+      $scope.uid = firebaseUser.uid;
+      $scope.profile = getProfile(firebaseUser.uid);
+       console.log("Signed in as:", firebaseUser.uid);
+    } else {
+      $scope.logedin =false;
+      $scope.message = "Signed out";
+      console.log("Signed out");
+    }
+  });
+
 
 }]);

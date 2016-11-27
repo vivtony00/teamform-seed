@@ -1,6 +1,4 @@
-$(document).ready(onReady);
-//pull out the onReady function in oder to do unit tests
-var onReady = function(){
+$(document).ready(function(){
   firebase.auth().getRedirectResult().then(function(result) {
     if (result.credential) {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
@@ -46,6 +44,7 @@ var onReady = function(){
 
     $("#btn_member").click(function(){
     	var val = $('#input_text').val();
+      console.log(val);
     	if ( val !== '' ) {
     		var url = "member.html?q=" + val;
     		window.location.href= url ;
@@ -96,4 +95,4 @@ var onReady = function(){
       console.log("Facebook Login start");
       firebase.auth().signInWithRedirect(Facebookprovider);
     });
-};
+});

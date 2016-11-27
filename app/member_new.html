@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js" ng-app="teamform-app">
+<html lang="en" class="no-js" ng-app="teamform-member-app">
 
 <head>
     <meta charset="utf-8">
@@ -171,66 +171,212 @@
                     <i class="glyphicon glyphicon-tower" aria-hidden="true"></i><span class="yellow">T</span>eamfor<span class="yellow">M</span>
                 </a>
             </div>
-            <div class="collapse navbar-collapse" id="main-menu">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="#home">
-                            <span class="main-link">Home</span>
-                            <span class="additional-info-link bracket">
-                                start here
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#about">
-                            <span class="main-link">About</span>
-                            <span class="additional-info-link bracket">
-                                what it is
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#flow">
-                            <span class="main-link">Getting started</span>
-                            <span class="additional-info-link bracket">
-                                how to use
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#team">
-                            <span class="main-link">Team</span>
-                            <span class="additional-info-link bracket">
-                                our works
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+
         </div>
     </div>
-
-    <div class="section-home" id="home">
+    <div class="standard-section section-promo section-counter" id="counter">
+        <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="triangle triangle-down" data-100p-top="bottom[swing]:-70px" data-75p-top="bottom[swing]:-40px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
         <div class="overlay"></div>
         <canvas class="particles" id="particles"></canvas>
         <div class="container">
-            <div class="home-container">
-                <div class="hex-shape"><i class="glyphicon glyphicon-tower" aria-hidden="true" style="margin-top: 25px;"></i></div>
-                <div class="clearfix"></div>
-                <h2 class="digit-header">teamform</h2>
-                <h3 class="signature-header"><small>By Team<strong> Long Time No Name</strong></small></h3>
-                <h1 class="system-header">A real-time online team forming app</h1>
-                <p style="margin-bottom: 0px;">Enter a event name</p>
-                  <div class="row" style="margin-bottom: 10px;"><div class="col-xs-12 col-md-6 "><input id="input_text" type="text" class="form-control col-xs-12 col-md-6 col-md-offset-6"></div></div>
-                  <a id="btn_member" class="btn btn-border btn-default" title="Search">
-                      <span><i class="glyphicon glyphicon-search" aria-hidden="true"></i> Search</span>
-                  </a>
+            <div class="text-center">
+                <h2 class="digit-header">Event Page</h2>
+                <h2 id="text_event_name" class="system-header"></h2>
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">time is running out, lets join a team</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Time left</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+            </div>
+            <div class="clock" id="clock">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="text-center">
+                             <span class="counter-number" data-100p-top="transform[swing]:rotate(-90deg)" data-65p-top="transform[swing]:rotate(0deg)">
+                                <span class="days"></span>
+                            </span>
+                            <span class="countdown-label">days</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="text-center">
+                             <span class="counter-number" data-100p-top="transform[swing]:rotate(-90deg)" data-70p-top="transform[swing]:rotate(0deg)">
+                                <span class="hours"></span>
+                            </span>
+                            <span class="countdown-label">hours</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="text-center">
+                            <span class="counter-number" data-100p-top="transform[swing]:rotate(-90deg)" data-75p-top="transform[swing]:rotate(0deg)">
+                                <span class="mins"></span>
+                            </span>
+                            <span class="countdown-label">minutes</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="text-center">
+                            <span class="counter-number" data-100p-top="transform[swing]:rotate(-90deg)" data-80p-top="transform[swing]:rotate(0deg)">
+                                <span class="secs"></span>
+                            </span>
+                            <span class="countdown-label">seconds</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="home-bg"></div>
     </div>
+    <div class="standard-section section-team" id="team">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Teams</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-users" aria-hidden="true"></i></div>
+            </div>
+            <div id="member_page_controller" ng-controller="MemberCtrl">
+              <div class="row">
+                 <div class="col-md-2 col-xs-2"></div>
+                 <div class="col-md-8 col-xs-8 panel">
+                    <form class="form-horizontal">
+                       <div class="form-group">
+                          <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
+                          <div class="col-sm-5">
+                          <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
+                          </div>
 
-    <div class="standard-section section-about" id="about">
+                          <div class="col-sm-4">
+                            <button type="button" class="btn btn-default" ng-click="saveFunc();" >Add/Modify</button>
+                            <button type="button" class="btn btn-default" ng-click="loadFunc();" >Load</button>
+                          </div>
+                       </div>
+
+                       <div class="form-group">
+                          <label for="inputName" class="col-sm-3 control-label">Name</label>
+                          <div class="col-sm-9">
+                          <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
+                          </div>
+                       </div>
+                       <div class="form-group">
+                          <label class="col-sm-3 control-label">Search: </label>
+                          <div class="col-sm-3">
+                            <input type="text" ng-model="searchText" class="form-control">
+                          </div>
+                          <label class="col-sm-3 control-label">Size: </label>
+                          <div class="col-sm-3">
+                            <input type="number" ng-model="sizeText" class="form-control">
+                          </div>
+                       </div>
+                       <div class="form-group">
+                          <a type="button" class="btn btn-default" ng-click="skillsmatch();" ><i class="glyphicon glyphicon-education" aria-hidden="true"></i> Skill match</a>
+                          <a type="button" class="btn btn-default" ng-click="personalitymatch();" ><i class="glyphicon glyphicon-king" aria-hidden="true"></i> Personality match</a>
+                          <a type="button" class="btn btn-default" ng-click="starmatch();" ><i class="glyphicon glyphicon-star" aria-hidden="true"></i> Star match</a>
+                          <a type="button" class="btn btn-default" ng-click="selectall();"><i class="glyphicon glyphicon-random" aria-hidden="true"></i> I Don't Care</a>
+                       </div>
+                    </form>
+
+                <div class="row text-left">
+
+               <h3>Recruiting:</h3>
+               <div class="row">
+                 <div class="col-sm-6 col-md-4" ng-repeat="advertisement in advertisements">
+                     <div class="requirement-item" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                         <div class="row">
+                             <div class="col-xs-3">
+                                 <div class="requirement-icon">
+                                     <i class="fa fa-cog" aria-hidden="true"></i>
+                                 </div>
+                             </div>
+                             <div class="col-xs-9">
+                                 <div class="requirement-description">
+                                     <h3>{{advertisement.$id}}</h3>
+                                     <p>{{advertisement.content}}</p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     {{advertisement.$id}}:{{advertisement.content}}
+                 </div>
+               </div>
+
+                 <h3>Your team preference(s):</h3>
+               <div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
+                 <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+                   <div class="row">
+                     <div class="col-xs-12 col-sm-6 col-md-12">
+                       <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
+                         <div class="row">
+                           <div class="col-sm-6 col-md-2">
+                             <img src="http://placehold.it/158x158" class="img-rounded img-responsive" draggable="false" />
+                           </div>
+                           <div class="col-sm-6 col-md-4">
+                             <h4>{{team.$id}}</h4>
+                             <!-- <small>
+                               <cite>Denmark, Harboøre, Vandværksvej 12  <i class="glyphicon glyphicon-map-marker"></i></cite>
+                             </small> -->
+                             <p>
+                               <i class="glyphicon glyphicon-star"></i> wanted:{{team.wantedHoroscopes}} <br />
+                               <i class="glyphicon glyphicon-education"></i> wanted: {{team.wantedSkills}}<br />
+                               <i class="glyphicon glyphicon-king"></i> wanted: {{team.wantedPersonalities}}
+                             </p>
+                           </div>
+                           <div class="col-sm-6 col-md-6">
+                             <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}} / {{team.currentTeamSize}}</span>
+                             <h4>Description</h4>
+                             <p>Here goes the Description...</p>
+                           </div>
+                           <div class="col-sm-6 col-md-12">
+                             <div class="row nav">
+                               <div class="col-md-12" style="margin: 0px;">
+                                 <hr style="margin-bottom: 5px;margin-top: 5px;">
+                                 members:
+                                 <span ng-repeat="member in team.teamMembers">
+                                   {{member}}
+                                 </span>
+                                 <!-- <button class="btn btn-default"><i class="fa fa-smile-o fa-lg"></i> 62</button>
+                                 <button class="btn btn-default"><i class="fa fa-heart-o fa-lg"></i> 54</button>
+                                 <button class="btn btn-default"><i class="fa fa-thumbs-o-up fa-lg"></i> 67</button> -->
+                                 <span class="pull-right">Action:
+                                   <button class="btn btn-default" ng-click="toggleSelection(team.$id)" ng-show="selection.indexOf(team.$id) < 0"> <i class="fa fa-smile-o fa-lg"></i> Join</button>
+                                   <button class="btn btn-default" ng-click="toggleSelection(team.$id)" ng-show="selection.indexOf(team.$id) > -1"> <i class="fa fa-frown-o fa-lg"></i> leave</button>
+                                 </span>
+
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+                <div class="checkbox">
+                 <label><input type="checkbox" value="{{team.$id}}"
+                   ng-checked="selection.indexOf(team.$id) > -1"
+                   ng-click="toggleSelection(team.$id)">
+                 {{team.$id}}:{{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}}
+                 <!-- {{team.teamMembers}} -->
+                 </label>
+                </div>
+
+               </div>
+
+               <!-- <div ng-show="!(teams| filter:searchText).length">No Such Team</div> -->
+             </div>
+
+
+                 </div>
+                 <div class="col-md-2 col-xs-2"></div>
+              </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- <div class="standard-section section-about" id="about">
         <div class="container">
             <div class="text-center">
                 <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">what it is</h3>
@@ -316,23 +462,17 @@
             <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
                 <div class="hex-shape"><i class="fa fa-power-off"></i></div>
             </div>
-          <div class="row">
-               <p class="text-center lead">Team Forming</p>
-              </div>
-            <p class="text-center lead"> In Our Awesome Ways.</p>
+            <p class="text-center lead">Quisque condimentum vehicula dolor, sit amet mollis metus varius in. Duis eu gravida massa. Nulla id egestas mi. Etiam sit amet odio aliquet, malesuada velit nec, mollis justo. Integer porttitor nibh eu dignissim porttitor. Etiam dictum dolor metus, nec ultrices nulla facilisis ac. Maecenas congue arcu eget tempor ornare.</p>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="feature-box text-center">
                         <span class="icon-circle-outer" data-100p-top="transform[swing]:translateY(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
                             <span class="icon-circle-inner">
-                               <i class="fa fa-user" aria-hidden="true"></i>
+                                <i class="fa fa-download" aria-hidden="true"></i>
                             </span>
                         </span>
-                        <h3 class="standard-subheader bracket">Login</h3>
-                       <div class="row"> 
-                           <p class="no-margin">Login in through Facebook</p>
-                           <p class="no-margin">or Creat Account.</p>
-                        </div>
+                        <h3 class="standard-subheader bracket">Download</h3>
+                        <p class="no-margin">Download our game from <a href="#" title="google">google.com</a>. You can choose portable or installer version.</p>
                         <img class="arrow arrow-up hidden-xs" src="img/arrow-1.png" alt="arrow" data-100p-top="transform[swing]:rotate(45deg);opacity[swing]:0" data-75p-top="transform[swing]:rotate(0deg);opacity[swing]:1">
                     </div>
                 </div>
@@ -340,11 +480,11 @@
                     <div class="feature-box text-center">
                         <span class="icon-circle-outer" data-100p-top="transform[swing]:translateY(-65px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
                             <span class="icon-circle-inner">
-                                <i class="fa fa-search" aria-hidden="true"></i>
+                                <i class="fa fa-hdd-o" aria-hidden="true"></i>
                             </span>
                         </span>
-                        <h3 class="standard-subheader bracket">Search Event</h3>
-                        <p class="no-margin">Enter the event you desire to join.</p>
+                        <h3 class="standard-subheader bracket">Install</h3>
+                        <p class="no-margin">Install the game in your hard drive. The game size is only 2 GB.</p>
                         <img class="arrow arrow-down hidden-xs" src="img/arrow-2.png" alt="arrow" data-100p-top="transform[swing]:rotate(-45deg);opacity[swing]:0" data-75p-top="transform[swing]:rotate(0deg);opacity[swing]:1">
                     </div>
                 </div>
@@ -352,14 +492,11 @@
                     <div class="feature-box text-center">
                         <span class="icon-circle-outer" data-100p-top="transform[swing]:translateY(-100px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
                             <span class="icon-circle-inner">
-                              <!--  <span class="main-icon glyphicon glyphicon-king"></span>
-                            </span>-->
-                                <i class="fa fa-group" aria-hidden="true"></i>
-                        </span>
+                                <span class="main-icon glyphicon glyphicon-play"></span>
                             </span>
-                        <h3 class="standard-subheader bracket">TeamForming</h3>
-                        <p class="no-margin">Form your dream team </p>
-                        <p class="no-margin">through our prominent tools.</p>
+                        </span>
+                        <h3 class="standard-subheader bracket">Play</h3>
+                        <p class="no-margin">Create your own character and have fun during killing monster!.</p>
                     </div>
                 </div>
             </div>
@@ -382,7 +519,7 @@
                         <img class="team-image" src="img/cc_v1.png" alt="Person"  height="300" width="300">
                         <div class="team-description">
                             <h3>Cheung Chi Chung</h3>
-                            <p><i class="fa fa-briefcase"></i> Team Leader</p>
+                            <p><i class="fa fa-briefcase"></i> CEO &amp; Founder</p>
                         </div>
                     </div>
                 </div>
@@ -393,35 +530,35 @@
                         <img class="team-image" src="img/lion.png" alt="Person" height="300" width="250">
                         <div class="team-description">
                             <h3>Lion</h3>
-                            <p><i class="fa fa-briefcase"></i>Profile Programmer</p>
+                            <p><i class="fa fa-briefcase"></i> Programmer</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
-                        <img class="team-image" src="img/bobby.png" alt="Person" height="300" width="224">
+                        <img class="team-image" src="img/bobby.png" alt="Person" height="300" width="250">
                         <div class="team-description">
-                            <h3>Bobby</h3>
-                            <p><i class="fa fa-briefcase"></i>System Programmer</p>
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
                         </div>
                     </div>
                 </div>
                  <div class="col-sm-4">
                     <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
-                        <img class="team-image" src="img/eric.png" alt="Person" height="300" width="230">
+                        <img class="team-image" src="img/eric.png" alt="Person" height="300" width="250">
                         <div class="team-description">
-                            <h3> Eric </h3>
-                            <p><i class="fa fa-briefcase"></i> UI Designer</p>
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
                         </div>
                     </div>
                 </div>
 
                  <div class="col-sm-4">
                     <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
-                        <img class="team-image" src="img/wasin_v1.png" alt="Person" height="300" width="202">
+                        <img class="team-image" src="img/wasin_v1.png" alt="Person" height="300" width="230">
                         <div class="team-description">
-                            <h3>Wasin</h3>
-                            <p><i class="fa fa-briefcase"></i>Matching Programmer</p>
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
                         </div>
                     </div>
                 </div>
@@ -430,8 +567,8 @@
                     <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
                         <img class="team-image" src="img/victor.png" alt="Person" height="300" width="300">
                         <div class="team-description">
-                            <h3>Victor</h3>
-                            <p><i class="fa fa-briefcase"></i>Chat Room Programmer</p>
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
                         </div>
                     </div>
                 </div>
@@ -439,17 +576,17 @@
 
                  <div class="col-sm-4">
                     <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
-                        <img class="team-image" src="img/Tiv.png" alt="Person" height="300" width="300">
+                        <img class="team-image" src="img/Tiv.png" alt="Person" height="300" width="400">
                         <div class="team-description">
-                            <h3>Tivonn</h3>
-                            <p><i class="fa fa-briefcase"></i> Management Programmer</p>
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-    </div>
+    </div> -->
     <footer class="footer text-center" id="follow-us">
         <div class="container">
             <ul class="list-inline">
@@ -567,7 +704,7 @@
     <script src="lib/angularfire.min.js"></script>
     <!-- Log in control -->
     <script src="js/index.js"></script>
-    <script src="js/login.js"></script>
+    <script src="js/member.js"></script>
 
 </body>
 </html>
