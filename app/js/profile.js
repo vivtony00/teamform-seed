@@ -45,7 +45,9 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
           for (var key in $scope.input) {
             if (typeof $scope.profile[key]=="undefined") {
               $scope.profile[key] = $scope.input[key];
-
+            }
+            else{
+              $scope.input[key] = $scope.profile[key];
             }
           }
           if(typeof $scope.profile["like"]=="undefined"){$scope.profile["like"]=$scope.like;}
@@ -218,7 +220,7 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
 
         }];
 
-              $scope.presetpersonality = ["Pawn", "Bishop", "Knight", "Rook", "Queen", "King"];
+              $scope.presetpersonality = ["pawn", "bishop", "knight", "tower", "queen", "king"];
 
 
               $scope.count = 0;

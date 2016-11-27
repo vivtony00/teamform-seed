@@ -257,7 +257,7 @@
                  <div class="col-md-2 col-xs-2"></div>
                  <div class="col-md-8 col-xs-8 panel">
                     <form class="form-horizontal">
-                       <div class="form-group">
+                       <div class="form-group" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                           <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
                           <div class="col-sm-5">
                           <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
@@ -269,13 +269,13 @@
                           </div>
                        </div>
 
-                       <div class="form-group">
+                       <div class="form-group" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                           <label for="inputName" class="col-sm-3 control-label">Name</label>
                           <div class="col-sm-9">
                           <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
                           </div>
                        </div>
-                       <div class="form-group">
+                       <div class="form-group" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                           <label class="col-sm-3 control-label">Search: </label>
                           <div class="col-sm-3">
                             <input type="text" ng-model="searchText" class="form-control">
@@ -285,7 +285,8 @@
                             <input type="number" ng-model="sizeText" class="form-control">
                           </div>
                        </div>
-                       <div class="form-group">
+                       <div class="form-group" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+                         <label class="col-sm-3 control-label">matching:</label>
                           <a type="button" class="btn btn-default" ng-click="skillsmatch();" ><i class="glyphicon glyphicon-education" aria-hidden="true"></i> Skill match</a>
                           <a type="button" class="btn btn-default" ng-click="personalitymatch();" ><i class="glyphicon glyphicon-king" aria-hidden="true"></i> Personality match</a>
                           <a type="button" class="btn btn-default" ng-click="starmatch();" ><i class="glyphicon glyphicon-star" aria-hidden="true"></i> Star match</a>
@@ -297,29 +298,31 @@
 
                <h3>Recruiting:</h3>
                <div class="row">
-                 <div class="col-sm-6 col-md-4" ng-repeat="advertisement in advertisements">
-                     <div class="requirement-item" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
-                         <div class="row">
-                             <div class="col-xs-3">
-                                 <div class="requirement-icon">
-                                     <i class="fa fa-cog" aria-hidden="true"></i>
-                                 </div>
-                             </div>
-                             <div class="col-xs-9">
-                                 <div class="requirement-description">
-                                     <h3>{{advertisement.$id}}</h3>
-                                     <p>{{advertisement.content}}</p>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     {{advertisement.$id}}:{{advertisement.content}}
+                 <div data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                   <div class="col-sm-6 col-md-4" ng-repeat="advertisement in advertisements">
+                       <div class="requirement-item">
+                           <div class="row">
+                               <div class="col-xs-3">
+                                   <div class="requirement-icon">
+                                       <i class="fa fa-cog" aria-hidden="true"></i>
+                                   </div>
+                               </div>
+                               <div class="col-xs-9">
+                                   <div class="requirement-description">
+                                       <h3>{{advertisement.$id}}</h3>
+                                       <p>{{advertisement.content}}</p>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <!-- {{advertisement.$id}}:{{advertisement.content}} -->
+                   </div>
                  </div>
                </div>
 
                  <h3>Your team preference(s):</h3>
-               <div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
-                 <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+               <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-20p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+                 <div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
                    <div class="row">
                      <div class="col-xs-12 col-sm-6 col-md-12">
                        <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
