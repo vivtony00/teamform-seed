@@ -286,11 +286,13 @@
                           </div>
                        </div>
                        <div class="form-group" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
-                         <label class="col-sm-3 control-label">matching:</label>
-                          <a type="button" class="btn btn-default" ng-click="skillsmatch();" ><i class="glyphicon glyphicon-education" aria-hidden="true"></i> Skill match</a>
-                          <a type="button" class="btn btn-default" ng-click="personalitymatch();" ><i class="glyphicon glyphicon-king" aria-hidden="true"></i> Personality match</a>
-                          <a type="button" class="btn btn-default" ng-click="starmatch();" ><i class="glyphicon glyphicon-star" aria-hidden="true"></i> Star match</a>
-                          <a type="button" class="btn btn-default" ng-click="selectall();"><i class="glyphicon glyphicon-random" aria-hidden="true"></i> I Don't Care</a>
+                          <label class="col-md-2 control-label">matching:</label>
+                          <div class="col-md-8">
+                            <a type="button" class="btn btn-default" ng-click="skillsmatch();" ><i class="glyphicon glyphicon-education" aria-hidden="true"></i> Skill match</a>
+                            <a type="button" class="btn btn-default" ng-click="personalitymatch();" ><i class="glyphicon glyphicon-king" aria-hidden="true"></i> Personality match</a>
+                            <a type="button" class="btn btn-default" ng-click="starmatch();" ><i class="glyphicon glyphicon-star" aria-hidden="true"></i> Star match</a>
+                            <a type="button" class="btn btn-default" ng-click="selectall();"><i class="glyphicon glyphicon-random" aria-hidden="true"></i> I Don't Care</a>
+                          </div>
                        </div>
                     </form>
 
@@ -321,7 +323,7 @@
                </div>
 
                  <h3>Your team preference(s):</h3>
-               <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-20p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+               <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-40p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                  <div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
                    <div class="row">
                      <div class="col-xs-12 col-sm-6 col-md-12">
@@ -377,14 +379,14 @@
                      </div>
                    </div>
                  </div>
-                <div class="checkbox">
+                <!-- <div class="checkbox">
                  <label><input type="checkbox" value="{{team.$id}}"
                    ng-checked="selection.indexOf(team.$id) > -1"
                    ng-click="toggleSelection(team.$id)">
                  {{team.$id}}:{{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}}
-                 <!-- {{team.teamMembers}} -->
+                 {{team.teamMembers}}
                  </label>
-                </div>
+                </div> -->
 
                </div>
 
