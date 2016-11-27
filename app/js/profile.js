@@ -57,6 +57,7 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
           $scope.checkifuser();
           $(".Profileview").show();
           $(".updateProfileview").hide();
+          $("#show_test_result").hide();
         })
         .catch(function(error) {
           // Database connection error handling...
@@ -107,6 +108,12 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
     $scope.editProfile = function(){
       $(".updateProfileview").show();
       $(".Profileview").hide();
+    }
+    $scope.confirm = function(){
+      $("#show_test_result").hide();
+      $(".all").show();
+      $(".updateProfileview").hide();
+      $(".Profileview").show();
     }
 
     $scope.SkillTemp = "";
@@ -222,6 +229,7 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
               $scope.option4 = "";
               $scope.ans = "";
               $scope.answer = [];
+              $scope.result_img = "";
 
               $scope.ShowQ = function(){
                 $("#finish").hide();
@@ -262,26 +270,34 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
                   if ($scope.score%$scope.presetpersonality.length == c){
                     $scope.profile.personality = $scope.presetpersonality[c];
                     $scope.profile.$save();
+                    $scope.result_img = "photos/" + $scope.profile.personality + ".jpg";
                     $("#test").hide();
 
                   }
                 }
-                $(".all").show();
-                $(".updateProfileview").show();
+                $("#show_test_result").show();
+                // $(".all").show();
+                // $(".Profileview").show();
+
               }
 
 
           $scope.likeFunction = function(){
-              $scope.count_like = -1;
+              var count_like = 0;
 
-              for (var a=0;a<=$scope.profile.like.length;a++){
+
+              for (var a=0;a<$scope.profile.like.length;a++){
                 if ($scope.uid != $scope.profile.like[a] && $scope.uid != $scope.profile.uid){
-                  $scope.count_like++;
+                  count_like++;
+
                 }
               }
-              if ($scope.count_like == ($scope.profile.like.length)){
-                $scope.profile.like.push($scope.uid);
-                $scope.profile.$save();
+              if ($scope.profile.like.length == 0 && $scope.uid == $scope.profile.uid){
+
+              }
+              else if(count_like == ($scope.profile.like.length)){
+                  $scope.profile.like.push($scope.uid);
+                  $scope.profile.$save();
               }
 
           }

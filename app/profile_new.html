@@ -296,7 +296,7 @@
 
               <div class="col-md-6 Profileview">
                 <button class="myButton1" type="button" ng-click="likeFunction();"  style="height:30px; width:120px">
-        					<span class="glyphicon glyphicon-thumbs-up">Likes<span class="badge">{{profile.like.length}}</span></span> 
+        					<span class="glyphicon glyphicon-thumbs-up">Likes<span class="badge">{{profile.like.length}}</span></span>
 
 
         				</button>
@@ -483,6 +483,7 @@
 
           <div id="title">
             <h1>Personlity Test</h1>
+            <h3>{{q}}</h3>
           </div>
             <br>
             <label class="radio-inline">
@@ -505,8 +506,7 @@
 
             <button id="next" ng-click="nextQ()"  style="height:30px; width:90px">Next</button>
             <button id="finish" ng-click="showAns()"  style="height:30px; width:90px">Finish</button>
-            {{ans}}
-            {{answer}}
+
 
             <!-- <div class='button' id='prev'><a href='#'>Prev</a></div>
             <div class='button' id='start'> <a href='#'>Start Over</a></div> -->
@@ -519,7 +519,14 @@
 
          </div>
 
-{{input}}
+         <div id="show_test_result" ng-hide="check">
+           <img src="{{result_img}}" alt="Responsive image" class="img-circle">
+           <div>
+             <button id="confirm" ng-click="confirm()"  style="height:30px; width:90px">Confirm</button>
+           </div>
+         </div>
+
+
 </div>
 
 
