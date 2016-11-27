@@ -169,6 +169,10 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
 				console.log($scope.teams);
 				for (var team in $scope.teams) {
 					console.log(team);
+					for(var leader in $scope.teams[team].teamLeaders){
+						var leaderid = $scope.teams[team].teamLeaders[leader];
+						$scope.teams[team].teamLeaders[leader] = getProfile(leaderid);
+					}
 					for(var member in $scope.teams[team].teamMembers){
 						console.log($scope.teams[team].teamMembers[member]);
 						var uid = $scope.teams[team].teamMembers[member];
