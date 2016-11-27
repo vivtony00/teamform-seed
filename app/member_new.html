@@ -327,7 +327,7 @@
                            <div class="col-sm-6 col-md-2">
                              <div ng-repeat="teamleader in team.teamLeaders">
                                <a ng-href="/profile.html?uid={{teamleader.uid}}">
-                                 <img src="{{teamleader.pic}}" class="img-rounded img-responsive" draggable="false" />
+                                 <img src="{{teamleader.pic}}" class="img-circle img-responsive" draggable="false" />
                               <!-- <img src="http://placehold.it/158x158" class="img-rounded img-responsive" draggable="false" /> -->
                               </a>
                             </div>
@@ -344,9 +344,11 @@
                              </p>
                            </div>
                            <div class="col-sm-6 col-md-6">
-                             <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}} / {{team.currentTeamSize}}</span>
+                             <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{team.teamMembers.length+team.currentTeamLeaderSize}} / {{team.currentTeamSize}}</span>
                              <h4>Description</h4>
                              <p>Here goes the Description...</p>
+                             <p>{{team.desc}}</p>
+
                            </div>
                            <div class="col-sm-6 col-md-12">
                              <div class="row nav">
