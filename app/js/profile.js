@@ -177,47 +177,39 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
     // }
 
 
-          $scope.questions = [{
-              question: "Question1",
-              choices: [2, 5, 10, 1],
+    $scope.questions = [{
+        question: "I tend to trust most people.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              }, {
-              question: "Question2",
-              choices: [3, 6, 9, 2],
+        }, {
+        question: "I want to win the approval of those in authority, sometimes even when I don't really like them.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              }, {
-              question: "Question3",
-              choices: [72, 99, 108, 3],
+        }, {
+        question: "I love to take care of people and I'm good at it.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              }, {
-              question: "Question4",
-              choices: [4, 5, 6, 4],
+        }, {
+        question: "Success, prestige and recognition really matter to me.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              }, {
-              question: "Question5",
-              choices: [20, 30, 40, 5],
+        }, {
+        question: "I am more sensitive than most people; sometimes the world just seems too harsh.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              }, {
-              question: "Question6",
-              choices: [20, 30, 40, 5],
+        }, {
+        question: "I don't get depressed easily, if at all.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              },{
-              question: "Question7",
-              choices: [20, 30, 40, 5],
+        },{
+        question: " I plan the next adventure before the current one is finished.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              },{
-              question: "Question8",
-              choices: [20, 30, 40, 5],
+        },{
+        question: "I often refrain from acting, as I'm afraid of being overwhelmed.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              },{
-              question: "Question9",
-              choices: [20, 30, 40, 5],
-
-              },{
-              question: "Question10",
-              choices: [20, 30, 40, 5],
-
-              }];
+        }];
 
               $scope.presetpersonality = ["Pawn", "Bishop", "Knight", "Rook", "Queen", "King"];
 
