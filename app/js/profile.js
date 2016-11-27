@@ -112,9 +112,10 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
       $(".Profileview").hide();
     }
     $scope.confirm = function(){
-      $("#show_test_result").hide();
+      // $("#show_test_result").hide();
+      $(".all").hide();
       $(".all").show();
-      $(".updateProfileview").hide();
+      $(".Profileview").hide();
       $(".Profileview").show();
     }
 
@@ -123,6 +124,7 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
         if(typeof $scope.profile["skills"]=="undefined"){$scope.profile["skills"]=[];}
         $scope.profile["skills"].push($scope.SkillTemp);
         $scope.profile.$save();
+        $scope.SkillTemp = "";
     }
     $scope.removeSkill = function(e){
         $scope.item = $scope.profile.skills.indexOf(e);
