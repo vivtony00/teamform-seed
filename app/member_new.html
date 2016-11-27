@@ -257,7 +257,7 @@
                  <div class="col-md-2 col-xs-2"></div>
                  <div class="col-md-8 col-xs-8 panel">
                     <form class="form-horizontal">
-                       <div class="form-group" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+                       <!-- <div class="form-group" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                           <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
                           <div class="col-sm-5">
                           <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
@@ -274,20 +274,20 @@
                           <div class="col-sm-9">
                           <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
                           </div>
-                       </div>
+                       </div> -->
                        <div class="form-group" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                           <label class="col-sm-3 control-label">Search: </label>
-                          <div class="col-sm-3">
+                          <div class="col-sm-5">
                             <input type="text" ng-model="searchText" class="form-control">
                           </div>
-                          <label class="col-sm-3 control-label">Size: </label>
+                          <label class="col-sm-1 control-label">Size: </label>
                           <div class="col-sm-3">
                             <input type="number" ng-model="sizeText" class="form-control">
                           </div>
                        </div>
                        <div class="form-group" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                           <label class="col-md-2 control-label">matching:</label>
-                          <div class="col-md-8">
+                          <div class="col-md-10">
                             <a type="button" class="btn btn-default" ng-click="skillsmatch();" ><i class="glyphicon glyphicon-education" aria-hidden="true"></i> Skill match</a>
                             <a type="button" class="btn btn-default" ng-click="personalitymatch();" ><i class="glyphicon glyphicon-king" aria-hidden="true"></i> Personality match</a>
                             <a type="button" class="btn btn-default" ng-click="starmatch();" ><i class="glyphicon glyphicon-star" aria-hidden="true"></i> Star match</a>
@@ -323,35 +323,34 @@
                </div>
 
                  <h3>Your team preference(s):</h3>
-               <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-40p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+               <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-10p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                  <div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
                    <div class="row">
                      <div class="col-xs-12 col-sm-6 col-md-12">
                        <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
                          <div class="row">
                            <div class="col-sm-6 col-md-2">
-                             <div ng-repeat="teamleader in team.teamLeaders">
-                               <a ng-href="/profile.html?uid={{teamleader.uid}}">
+                            <div ng-repeat="teamleader in team.teamLeaders">
+                              <a ng-href="/profile.html?uid={{teamleader.uid}}">
                                  <img src="{{teamleader.pic}}" class="img-circle img-responsive" draggable="false" />
-                              <!-- <img src="http://placehold.it/158x158" class="img-rounded img-responsive" draggable="false" /> -->
                               </a>
                             </div>
                            </div>
                            <div class="col-sm-6 col-md-4">
                              <h4>{{team.$id}}</h4>
-                             <!-- <small>
-                               <cite>Denmark, Harboøre, Vandværksvej 12  <i class="glyphicon glyphicon-map-marker"></i></cite>
-                             </small> -->
                              <p>
                                <i class="glyphicon glyphicon-star"></i> wanted:{{team.wantedHoroscopes}} <br />
-                               <i class="glyphicon glyphicon-education"></i> wanted: {{team.wantedSkills}}<br />
+                               <i class="glyphicon glyphicon-education"></i> wanted:
+                               <span ng-repeat="skill in team.wantedSkills">
+                                 {{skill}}
+                               </span>
+                               <br />
                                <i class="glyphicon glyphicon-king"></i> wanted: {{team.wantedPersonalities}}
                              </p>
                            </div>
                            <div class="col-sm-6 col-md-6">
                              <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{team.teamMembers.length+team.currentTeamLeaderSize}} / {{team.currentTeamSize}}</span>
                              <h4>Description</h4>
-                             <p>Here goes the Description...</p>
                              <p>{{team.desc}}</p>
 
                            </div>
@@ -389,8 +388,7 @@
                 </div> -->
 
                </div>
-
-               <!-- <div ng-show="!(teams| filter:searchText).length">No Such Team</div> -->
+               <button type="button" class="btn btn-default pull-right" ng-click="saveFunc();" >Confirm</button>
              </div>
 
 
@@ -619,7 +617,7 @@
                     <a href="http://github.com/vivtony00/teamform-seed" title="github"><i class="fa fa-github"></i></a>
                 </li>
             </ul>
-            <p> &copy; 2016 <a href="http://jakubkwarcinski.pl" title="Team Long Time No name">Team Long Time No name</a></p>
+            <p> &copy; 2016 <a href="http://github.com/vivtony00/teamform-seed" title="Team Long Time No name">Team Long Time No name</a></p>
             <p class="text-center"><small>*Photos courtesy of and copyright Free Range Stock, <a href="http://www.freerangestock.com">www.freerangestock.com</a></small></p>
         </div>
     </footer>
