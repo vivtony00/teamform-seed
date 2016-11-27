@@ -92,6 +92,9 @@
              <option>Pisces</option>
             </select>
          </div>
+         <div class="col-md-8 col-xs-8">
+            <input type="text" class="form-control" id="inputDesc" placeholder="Enter Description" ng-model="param.desc">
+        </div>
 
 
                   </div>
@@ -133,7 +136,7 @@
                           <option value="" >Leader to Member</option>
                          </select>
                          &nbsp;
-                         
+
                          <select ng-model="" ng-change="setNLeader(y)" ng-options="y for y in param.teamMembers" id="selectMemberToChange">
                           <option value="" >Member to Leader</option>
                          </select>
@@ -149,7 +152,7 @@
             </button>
             <span style="float:right"><button type="button" class="btn btn-primary" ng-click="addleader(member);" >Add Leader</button></span>
             <br><br>
-           </div>  
+           </div>
 
 					 <div ng-repeat="member in param.teamMembers">
 						<button type="button" class="btn" ng-click="removeMember(member);">
@@ -205,7 +208,7 @@
       nLeader = document.getElementById("selectMemberToChange");
       document.getElementById('nLeaderV').innerHTML = nLeader[nLeader.selectedIndex].value;
      }
-     
+
    </script>
 
    <!-- Angular and Angular-route libraries (v1.5.7) -->
@@ -225,4 +228,3 @@
 
    </body>
 </html>
-

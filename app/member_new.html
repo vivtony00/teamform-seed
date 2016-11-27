@@ -336,7 +336,7 @@
                                  <hr style="margin-bottom: 5px;margin-top: 5px;">
                                  members:
                                  <span ng-repeat="member in team.teamMembers">
-                                   {{member}}
+                                   <a ng-href="/profile.html?uid={{member.uid}}"><img ng-src="{{member.pic}}" height="100" width="100"></img></a>
                                  </span>
                                  <!-- <button class="btn btn-default"><i class="fa fa-smile-o fa-lg"></i> 62</button>
                                  <button class="btn btn-default"><i class="fa fa-heart-o fa-lg"></i> 54</button>

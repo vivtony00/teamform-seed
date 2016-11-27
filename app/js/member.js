@@ -64,10 +64,18 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
 
 
 	$scope.saveFunc = function() {
-		var userID = $.trim( $scope.userID );
-		var userName = $.trim( $scope.userName );
+		var userName = "";
+		var userID = $.trim( $scope.uid );
+		// var userName = $.trim( $scope.userName );
+		console.log($scope.uid);
+		var userprofile = getProfile($scope.uid);
+		console.log(userprofile);
+		userprofile.$loaded().then(function(profile){
+			var userName = userprofile.name;
+			console.log(userName);
+		});
 
-		if ( userID !== '' && userName !== ''  ) {
+		if ( userID !== '' ) {
 			var newData = {
 				'name': userName,
 				'selection': $scope.selection
@@ -157,6 +165,17 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
 		console.log($scope.teams);
 		$scope.teams.$loaded()
 			.then( function(data) {
+				console.log("$scope.teams.$loaded.then");
+				console.log($scope.teams);
+				for (var team in $scope.teams) {
+					console.log(team);
+					for(var member in $scope.teams[team].teamMembers){
+						console.log($scope.teams[team].teamMembers[member]);
+						var uid = $scope.teams[team].teamMembers[member];
+						$scope.teams[team].teamMembers[member] = getProfile(uid);
+						// member.profile.$loaded().then(function(aa){console.log(aa);});
+					}
+				}
 			})
 			.catch(function(error) {
 				// Database connection error handling...
@@ -173,13 +192,14 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
 	var getProfile = function(uid){
       var path= "profile/"+uid;
       var ref = firebase.database().ref(path);
-      $scope.profile = $firebaseObject(ref);
-      $scope.profile.$loaded()
+      var profile = $firebaseObject(ref);
+      profile.$loaded()
+				.then(function(profile){console.log(profile.uid+":",profile);})
         .catch(function(error) {
           // Database connection error handling...
           console.error("Error:", error);
         });
-        return $scope.profile;
+        return profile;
   };
 
 	$scope.skillsmatch = function() {
