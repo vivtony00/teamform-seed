@@ -384,13 +384,16 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 		  var eventName = "/events/"+ getURLParameter("q") +"/member/";
 		  console.log(eventName);
 		  var ref = firebase.database().ref(eventName);
+			// change event to global variable temporarily
 		  var event = $firebaseArray(ref);
 		  console.log(event);
 
 		  var teamPath ="/events/"+ getURLParameter("q") + "/team/";
 		  var teams = firebase.database().ref(teamPath);
 		  var team = $firebaseArray(teams);
-
+// need to test
+		// $scope.event = event;
+		// event = $scope.event;
 		event.$loaded().then( function(data){
 			outerloop:
 		  for( var mem in event){
