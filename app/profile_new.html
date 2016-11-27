@@ -45,7 +45,7 @@
     <!-- Favicon -->
     <link rel="icon" href="img/favicon.png" type="image/png">
 
-    
+
        <style>
     .myButton {
 	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
@@ -87,7 +87,7 @@
 	position:relative;
 	top:1px;
 }
-           
+
            .myButton1 {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -129,11 +129,11 @@
 	top:1px;
 }
 
-           
-           
+
+
 </style>
-    
-    
+
+
 </head>
 
 <body data-spy="scroll" data-offset="122" data-target="#main-menu" data-skrollr="true">
@@ -267,7 +267,7 @@
         </div>
     </div>
 
-   
+
         <div class="overlay"></div>
         <canvas class="particles" id="particles"></canvas>
         <div class="container">
@@ -276,19 +276,7 @@
                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1"> Profile Page</h2>
             </div>
            <div class="container" ng-controller="profileinput" >
-
-          <div class="row col-md-3 all ">
-
-
-                <!-- <img src={{profile.pic}} class="img-responsive img-circle" alt="Responsive image">
-                  <input type="file" id="file" name="file">
-                  <button type="btn btn-primary" id="uploadButton" ng-click="uploadFile()" >SUBMIT</button>
-                </img> -->
-
-                <!-- <input type="image" src="img/propic.jpg" class="img-responsive img-circle" alt="Responsive image" />
-
-
-              </input> -->
+             <div class="row col-md-3 all ">
               <Label for="file">
                 <img src="{{profile.pic}}" class="img-responsive img-circle " alt="Responsive image">
               </Label>
@@ -317,7 +305,7 @@
 
               <div class="col-md-6 updateProfileview" ng-hide = "check">
                 <input type="text"  data-role="tagsinput" ng-model="SkillTemp" placeholder="Add skills" />
-                <button class="myButton" type="add" ng-click="addSkill()  style="height:30px; width:120px"">AddSkill</button>
+                <button class="myButton" type="add" ng-click="addSkill()" style="height:30px; width:120px">AddSkill</button>
 
 
               </div>
@@ -401,19 +389,19 @@
           <p>{{profile.star}}</p>
         </div>
       </div>
-    
-     
+
+
     <div class="form-group">
         <label class="col-md-8 control-label">Location</label>
-        
+
         <div class="col-md-8 updateProfileview">
 
 
               <input class="form-control" type="text" id="location" ng-model="input.location" placeholder="location" required>
 
         </div>
-     
-          
+
+
         <div class="col-md-8 Profileview">
           <p>{{profile.location}}</p>
         </div>
@@ -479,7 +467,7 @@
                  <button class="myButton" type="save" ng-click="saveProfile();editProfile()"  style="height:30px; width:90px">Edit</button>
 
            </div>
-          
+
 
          </div>
 
@@ -534,12 +522,12 @@
 
 
 
-   
-           
-             
-                   
-       
-    
+
+
+
+
+
+
  </div>
          </div>
 
@@ -589,7 +577,7 @@
     <script src="lib/angularfire.min.js"></script>
     <!-- Log in control -->
     <script src="js/login.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/profile.js"></script>
 
 </body>
 </html>
