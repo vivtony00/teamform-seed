@@ -325,7 +325,12 @@
                        <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
                          <div class="row">
                            <div class="col-sm-6 col-md-2">
-                             <img src="http://placehold.it/158x158" class="img-rounded img-responsive" draggable="false" />
+                             <div ng-repeat="teamleader in team.teamLeaders">
+                               <a ng-href="/profile.html?uid={{teamleader.uid}}">
+                                 <img src="{{teamleader.pic}}" class="img-circle img-responsive" draggable="false" />
+                              <!-- <img src="http://placehold.it/158x158" class="img-rounded img-responsive" draggable="false" /> -->
+                              </a>
+                            </div>
                            </div>
                            <div class="col-sm-6 col-md-4">
                              <h4>{{team.$id}}</h4>
@@ -339,9 +344,11 @@
                              </p>
                            </div>
                            <div class="col-sm-6 col-md-6">
-                             <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}} / {{team.currentTeamSize}}</span>
+                             <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{team.teamMembers.length+team.currentTeamLeaderSize}} / {{team.currentTeamSize}}</span>
                              <h4>Description</h4>
                              <p>Here goes the Description...</p>
+                             <p>{{team.desc}}</p>
+
                            </div>
                            <div class="col-sm-6 col-md-12">
                              <div class="row nav">
@@ -349,7 +356,7 @@
                                  <hr style="margin-bottom: 5px;margin-top: 5px;">
                                  members:
                                  <span ng-repeat="member in team.teamMembers">
-                                   <a ng-href="/profile.html?uid={{member.uid}}"><img ng-src="{{member.pic}}" height="100" width="100" class="img-circle"></img></a>
+                                   <a ng-href="/profile.html?uid={{member.uid}}"><img ng-src="{{member.pic}}" height="50" width="50" class="img-circle"></img></a>
                                  </span>
                                  <!-- <button class="btn btn-default"><i class="fa fa-smile-o fa-lg"></i> 62</button>
                                  <button class="btn btn-default"><i class="fa fa-heart-o fa-lg"></i> 54</button>
