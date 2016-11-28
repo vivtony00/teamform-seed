@@ -135,6 +135,7 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
 
     }
 
+
     $("#file").on("change", function(event){
       selectedFile = event.target.files[0];
       $("#uploadButton").show();
@@ -143,9 +144,25 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
 
       console.log(tmppath);
 
+      var filename = selectedFile.name;
+      var storageRef = firebase.storage().ref('/profilepic' + filename);
+
+      var uploadTask = storageRef.put(selectedFile);
+
+      uploadTask.on('state_changed', function(snapshot){
+      },function(error){
+
+
+      },function(){
+
+          $scope.profile.pic = uploadTask.snapshot.downloadURL.toString();
+          $scope.profile.$save();
+
+
+        console.log($scope.profile.pic);
+      });
 
     });
-
 
     $scope.uploadFile = function(){
       var filename = selectedFile.name;
@@ -166,6 +183,7 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
         console.log($scope.profile.pic);
       });
     }
+
 
     $scope.removeFile = function(){
       if ($scope.profile.pic != $scope.picdefault){
