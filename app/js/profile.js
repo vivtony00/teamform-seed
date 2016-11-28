@@ -45,7 +45,9 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
           for (var key in $scope.input) {
             if (typeof $scope.profile[key]=="undefined") {
               $scope.profile[key] = $scope.input[key];
-
+            }
+            else{
+              $scope.input[key] = $scope.profile[key];
             }
           }
           if(typeof $scope.profile["like"]=="undefined"){$scope.profile["like"]=$scope.like;}
@@ -57,6 +59,7 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
           $scope.checkifuser();
           $(".Profileview").show();
           $(".updateProfileview").hide();
+          $("#show_test_result").hide();
         })
         .catch(function(error) {
           // Database connection error handling...
@@ -108,12 +111,20 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
       $(".updateProfileview").show();
       $(".Profileview").hide();
     }
+    $scope.confirm = function(){
+      // $("#show_test_result").hide();
+      $(".all").hide();
+      $(".all").show();
+      $(".Profileview").hide();
+      $(".Profileview").show();
+    }
 
     $scope.SkillTemp = "";
     $scope.addSkill = function(){
         if(typeof $scope.profile["skills"]=="undefined"){$scope.profile["skills"]=[];}
         $scope.profile["skills"].push($scope.SkillTemp);
         $scope.profile.$save();
+        $scope.SkillTemp = "";
     }
     $scope.removeSkill = function(e){
         $scope.item = $scope.profile.skills.indexOf(e);
@@ -177,49 +188,41 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
     // }
 
 
-          $scope.questions = [{
-              question: "Question1",
-              choices: [2, 5, 10, 1],
+    $scope.questions = [{
+        question: "I tend to trust most people.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              }, {
-              question: "Question2",
-              choices: [3, 6, 9, 2],
+        }, {
+        question: "I want to win the approval of those in authority, sometimes even when I don't really like them.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              }, {
-              question: "Question3",
-              choices: [72, 99, 108, 3],
+        }, {
+        question: "I love to take care of people and I'm good at it.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              }, {
-              question: "Question4",
-              choices: [4, 5, 6, 4],
+        }, {
+        question: "Success, prestige and recognition really matter to me.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              }, {
-              question: "Question5",
-              choices: [20, 30, 40, 5],
+        }, {
+        question: "I am more sensitive than most people; sometimes the world just seems too harsh.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              }, {
-              question: "Question6",
-              choices: [20, 30, 40, 5],
+        }, {
+        question: "I don't get depressed easily, if at all.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              },{
-              question: "Question7",
-              choices: [20, 30, 40, 5],
+        },{
+        question: " I plan the next adventure before the current one is finished.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              },{
-              question: "Question8",
-              choices: [20, 30, 40, 5],
+        },{
+        question: "I often refrain from acting, as I'm afraid of being overwhelmed.",
+        choices: ["No", "Partly", "Yes", "I dont want to tell you"],
 
-              },{
-              question: "Question9",
-              choices: [20, 30, 40, 5],
+        }];
 
-              },{
-              question: "Question10",
-              choices: [20, 30, 40, 5],
-
-              }];
-
-              $scope.presetpersonality = ["Pawn", "Bishop", "Knight", "Rook", "Queen", "King"];
+              $scope.presetpersonality = ["pawn", "bishop", "knight", "tower", "queen", "king"];
 
 
               $scope.count = 0;
@@ -230,6 +233,7 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
               $scope.option4 = "";
               $scope.ans = "";
               $scope.answer = [];
+              $scope.result_img = "";
 
               $scope.ShowQ = function(){
                 $("#finish").hide();
@@ -270,26 +274,34 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
                   if ($scope.score%$scope.presetpersonality.length == c){
                     $scope.profile.personality = $scope.presetpersonality[c];
                     $scope.profile.$save();
+                    $scope.result_img = "photos/" + $scope.profile.personality + ".jpg";
                     $("#test").hide();
 
                   }
                 }
-                $(".all").show();
-                $(".updateProfileview").show();
+                $("#show_test_result").show();
+                // $(".all").show();
+                // $(".Profileview").show();
+
               }
 
 
           $scope.likeFunction = function(){
-              $scope.count_like = -1;
+              var count_like = 0;
 
-              for (var a=0;a<=$scope.profile.like.length;a++){
+
+              for (var a=0;a<$scope.profile.like.length;a++){
                 if ($scope.uid != $scope.profile.like[a] && $scope.uid != $scope.profile.uid){
-                  $scope.count_like++;
+                  count_like++;
+
                 }
               }
-              if ($scope.count_like == ($scope.profile.like.length)){
-                $scope.profile.like.push($scope.uid);
-                $scope.profile.$save();
+              if ($scope.profile.like.length == 0 && $scope.uid == $scope.profile.uid){
+
+              }
+              else if(count_like == ($scope.profile.like.length)){
+                  $scope.profile.like.push($scope.uid);
+                  $scope.profile.$save();
               }
 
           }

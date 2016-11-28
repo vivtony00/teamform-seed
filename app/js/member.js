@@ -30,6 +30,8 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
 	$scope.auth.$onAuthStateChanged(function(firebaseUser) {
   		if (firebaseUser) {
     		$scope.uid = firebaseUser.uid;
+				$scope.userID = firebaseUser.uid;
+				$scope.profile = getProfile(firebaseUser.uid);
   		}
   		else {
     		console.log("Signed out");
@@ -162,35 +164,33 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
 		}
 
 		$scope.teams = $firebaseArray(ref);
-		console.log($scope.teams);
+		// console.log($scope.teams);
 		$scope.teams.$loaded()
 			.then( function(data) {
-				console.log("$scope.teams.$loaded.then");
-				console.log($scope.teams);
+				// console.log("$scope.teams.$loaded.then");
+				// console.log($scope.teams);
 				for (var team in $scope.teams) {
-					console.log(team);
+					// console.log(team);
 					for(var leader in $scope.teams[team].teamLeaders){
 						var leaderid = $scope.teams[team].teamLeaders[leader];
 						$scope.teams[team].teamLeaders[leader] = getProfile(leaderid);
 					}
 					for(var member in $scope.teams[team].teamMembers){
-						console.log($scope.teams[team].teamMembers[member]);
+						// console.log($scope.teams[team].teamMembers[member]);
 						var uid = $scope.teams[team].teamMembers[member];
 						$scope.teams[team].teamMembers[member] = getProfile(uid);
 						// member.profile.$loaded().then(function(aa){console.log(aa);});
 					}
+					$scope.loadFunc();
 				}
 			})
 			.catch(function(error) {
+				console.log(error);
 				// Database connection error handling...
 				//console.error("Error:", error);
 			});
 	}
 	$scope.refreshTeams(); // call to refresh teams...
-
-//.controller('matchCtrl', ["$scope", "$firebaseAuth"],
- // function($scope, $firebaseAuth) {
-
 
 // skills match
 	var getProfile = function(uid){
@@ -198,7 +198,6 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
       var ref = firebase.database().ref(path);
       var profile = $firebaseObject(ref);
       profile.$loaded()
-				.then(function(profile){console.log(profile.uid+":",profile);})
         .catch(function(error) {
           // Database connection error handling...
           console.error("Error:", error);
