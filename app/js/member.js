@@ -66,16 +66,16 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
 
 
 	$scope.saveFunc = function() {
-		var userName = $.trim( $scope.userName );
-		var userID = $.trim( $scope.userID );
+		// var userName = $.trim( $scope.userName );
+		var userID = $.trim( $scope.uid );
 		// var userName = $.trim( $scope.userName );
 		console.log($scope.uid);
 		var userprofile = getProfile($scope.uid);
 		console.log(userprofile);
-		// userprofile.$loaded().then(function(profile){
-		// 	var userName = userprofile.name;
-		// 	console.log(userName);
-		// });
+		userprofile.$loaded().then(function(profile){
+			var userName = userprofile.name;
+			console.log(userName);
+
 
 		if ( userID !== '' ) {
 			var newData = {
@@ -87,9 +87,10 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
 			var ref = firebase.database().ref(refPath);
 
 			ref.set(newData, function(){
-				// window.location.href= "index.html";
+				window.location.href= "index_new.html";
 			});
 		}
+		});
 	}
 
 	$scope.refreshAds = function() {
@@ -129,20 +130,7 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
 				}
 			}
 
-			var userID = $.trim( $scope.userID );
-			var userName = $.trim( $scope.userName );
-			if ( userID !== '' && userName !== ''  ) {
-				var newData = {
-					'name': userName,
-					'selection': $scope.selection
-				};
-
-				var refPath = "/events/"+ getURLParameter("q") + "/member/" + userID;
-				var ref = firebase.database().ref(refPath);
-
-				ref.set(newData, function(){
-				})
-			}
+			$scope.saveFunc();
 		})
 
 	}

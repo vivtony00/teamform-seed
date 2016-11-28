@@ -187,7 +187,7 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 			//
 			//
 			// $scope.$apply(); // force to refresh
-			
+
 			if ( data.child("teamMembers").val() != null ) {
 			$scope.param.teamMembers = data.child("teamMembers").val();
 			}
@@ -206,7 +206,7 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 			if ( data.child("wantedPersonalities").val() != null ) {
 				$scope.param.wantedPersonalities = data.child("wantedPersonalities").val();
 			}
-			
+
 			if ( data.child("desc").val() != null ) {
 				$scope.param.desc = data.child("desc").val();
 			}
@@ -232,7 +232,7 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 
 	$scope.processRequest = function(r)
 	{
-			console.log($scope.param.teamMembers);
+			// console.log($scope.param.teamMembers);
 		//$scope.test = "processRequest: " + r;
 		if( $scope.param.teamMembers.indexOf(r) < 0 &&
 			$scope.param.teamMembers.length + $scope.param.currentTeamLeaderSize < $scope.param.currentTeamSize  )
@@ -242,6 +242,7 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 			$scope.param.teamMembers.push(r);
 
 			$scope.saveFunc();
+			$scope.refreshViewRequestsReceived();
 		}
 	}
 
@@ -321,7 +322,7 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 			$scope.saveFunc();
 		}
 	}
-	
+
 	$scope.changeDesc = function(desc)
 	{
 		$scope.desc = desc;
