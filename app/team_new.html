@@ -174,7 +174,7 @@
 
         </div>
     </div>
-    <div class="standard-section section-promo section-counter" id="counter">
+    <div class="standard-section section-promo section-counter" id="counter" ng-controller="TeamCtrl">
         <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </div>
@@ -199,132 +199,97 @@
                  </div>
                 <h2 class="digit-header">Team Page</h2>
                 <div class="row text-left">
-                    
-                    
-                    
- <!--added by Eric-->             
- 
-     
+
+
+
+ <!--added by Eric-->
+
+
                   <!--   <label for="inputTeamName" class="control-label">Team Name</label>
      -->
                  <h3>Your Team</h3>
-               <div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
                  <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+                 <!-- <div> -->
                    <div class="row">
                      <div class="col-xs-12 col-sm-6 col-md-12">
                        <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
-                           
                          <div class="row">
-                      
                            <div class="col-sm-8 col-md-4">
-                               
-                               <button type="button" class="btn btn-default" ng-click="autoadd()"  >AutoAdd</button>
-                    <h4> <label for="inputTeamName" class="control-label">Team Name</label> </h4> 
-                               
+                             <!-- <button type="button" class="btn btn-default" ng-click="autoadd()"  >AutoAdd</button> -->
+                              <h4> <label for="inputTeamName" class="control-label">Team Name</label> </h4>
                                <br>
+                      					 <div class="row">
+                      						 <div class="col-md-8 col-xs-8">
+                      							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">
+                      						 </div>
+		                             </div>
 
-					 <div class="row">
-						 <div class="col-md-8 col-xs-8">
-							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">
-						 </div>
+                               <div class="row">
+                                   <h1></h1>
+                               </div>
 
-						
-						 
-                          
-						
-
-						
-					</div>
-
-                                <div class="col-md-8 col-xs-8">
-            <i class="glyphicon glyphicon-king"></i> wanted:
-
-            <select class="selectpicker" ng-model="param.wantedHoroscopes" style="width:120px; color:black">
-             <option>King</option>
-             <option>Queen</option>
-             <option>Knight</option>
-             <option>Bishop</option>
-             <option>Rook</option>
-            <option>Pawn</option>
-            </select>
-          </div>
-          <div class="col-md-8 col-xs-8">
-                 <i class="glyphicon glyphicon-star"></i> wanted:
-            <select class="selectpicker" ng-model="param.wantedHoroscopes" style="width:120px; color:black">
-                
-             <option>Aries</option>
-             <option>Taurus</option>
-             <option>Gemini</option>
-             <option>Cancer</option>
-             <option>Leo</option>
-             <option>Virgo</option>
-             <option>Libra</option>
-             <option>Scorpio</option>
-             <option>Sagittarius</option>
-             <option>Capricorn</option>
-             <option>Aquarius</option>
-             <option>Pisces</option>
-            </select>
-         </div>
- 
-               <div class="row">  
-                   <h1></h1>
-                </div>
-
-                  <div class="row">
-                      <div class="col-md-8 col-xs-8">
-					  <strong>   Team Size: </strong>
-					  <span>
-						 <span class="badge">
-						   {{param.currentTeamSize}}</span>
-
-						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);" style="color:black"></span></button>
-
-						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);" style="color:black"></span></button>
-
-
-					   </span>
-				   </div>
-                      </div>
-               <div class="row">  
-                   <h1></h1>
-                </div>
-                               
-                              
-
-                               
-                               
-     <span class="pull-right">
-                                   <button type="button" class="btn btn-default" ng-click="createteam();"  ><i class="fa fa-plus"></i>Add</button>
-                                  
-                                      
-                                    <button type="button" class="btn btn-default" ng-click="loadFunc();" ><i class="fa fa-download"></i>Load</button>
-                             
-                                    
-     </span>
-                        
-                         
-                             
-               
+                              <div class="row">
+                                  <div class="col-md-8 col-xs-8">
+                      					  <strong>   Team Size: </strong>
+                      					  <span>
+                      						 <span class="badge">
+                      						   {{param.currentTeamSize}}</span>
+                      						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);" style="color:black"></span></button>
+                      						 <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);" style="color:black"></span></button>
+                    					    </span>
+                      				   </div>
+                              </div>
+                           <div class="row">
+                               <h1></h1>
+                            </div>
+                            <span class="pull-right">
+                              <button type="button" class="btn btn-default" ng-click="createteam();"  ><i class="fa fa-plus"></i>Add</button>
+                              <button type="button" class="btn btn-default" ng-click="loadFunc();" ><i class="fa fa-download"></i>Load</button>
+                            </span>
                            </div>
                            <div class="col-sm-6 col-md-6">
-                             <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}} / {{team.currentTeamSize}}</span>
+                             <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{param.teamMembers.length+param.teamLeaders.length}} / {{param.currentTeamSize}}</span>
                              <h4>Description</h4>
-                             <p>Here goes the Description...</p>
+                             <input type="text" class="form-control" ng-model="param.desc">
+                             <div class="row">
+                              <i class="glyphicon glyphicon-king"></i> wanted:
+
+                              <select class="selectpicker" ng-model="param.wantedHoroscopes" style="width:120px; color:black">
+                               <option>King</option>
+                               <option>Queen</option>
+                               <option>Knight</option>
+                               <option>Bishop</option>
+                               <option>Rook</option>
+                              <option>Pawn</option>
+                              </select>
+                            </div>
+                            <div class="row">
+                                   <i class="glyphicon glyphicon-star"></i> wanted:
+                              <select class="selectpicker" ng-model="param.wantedHoroscopes" style="width:120px; color:black">
+
+                               <option>Aries</option>
+                               <option>Taurus</option>
+                               <option>Gemini</option>
+                               <option>Cancer</option>
+                               <option>Leo</option>
+                               <option>Virgo</option>
+                               <option>Libra</option>
+                               <option>Scorpio</option>
+                               <option>Sagittarius</option>
+                               <option>Capricorn</option>
+                               <option>Aquarius</option>
+                               <option>Pisces</option>
+                              </select>
+                           </div>
                            </div>
                            <div class="col-sm-6 col-md-12">
                              <div class="row nav">
                                <div class="col-md-12" style="margin: 0px;">
                                  <hr style="margin-bottom: 5px;margin-top: 5px;">
-                                 members:
-                                 <span ng-repeat="member in team.teamMembers">
-                                   {{member}}
-                                 </span>
-                                 <!-- <button class="btn btn-default"><i class="fa fa-smile-o fa-lg"></i> 62</button>
-                                 <button class="btn btn-default"><i class="fa fa-heart-o fa-lg"></i> 54</button>
-                                 <button class="btn btn-default"><i class="fa fa-thumbs-o-up fa-lg"></i> 67</button> -->
-                                
-
+                                 <!-- members:
+                                 <span ng-repeat="member in param.teamMembers">
+                                   {{member.$id}}
+                                 </span> -->
                                </div>
                              </div>
                            </div>
@@ -333,60 +298,39 @@
                      </div>
                    </div>
                  </div>
-              
-
                </div>
-  
+
                <!-- <div ng-show="!(teams| filter:searchText).length">No Such Team</div> -->
-                    <h3>Promote Your Group!</h3> 
-                     
+                    <h3>Promote Your Group!</h3>
+
                  <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                    <div class="row">
                      <div class="col-xs-12 col-sm-6 col-md-12">
                        <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
-                         
-                                                 
                          <div class="row">
-                         <div class="col-sm-3 col-md-3">
-                           <input type="text" class="form-control" placeholder="Enter title!" ng-model="param.title"><div></div>
-                             
-						<input type="text" class="form-control" placeholder="Enter your requirement!" ng-model="param.advertisement">
-                            </div>
-                             
-                              <div class="col-md-1 col-xs-1">
-						   <button type="button" class="btn btn-default" ng-click="advertise();" ><strong>Promote!</strong></button>
-					</div>
-
-                             
-                          
-                             
-                                 <!-- <button class="btn btn-default"><i class="fa fa-smile-o fa-lg"></i> 62</button>
-                                 <button class="btn btn-default"><i class="fa fa-heart-o fa-lg"></i> 54</button>
-                                 <button class="btn btn-default"><i class="fa fa-thumbs-o-up fa-lg"></i> 67</button> -->
-                                
-
-                             
+                           <div class="col-xs-6 col-md-5 col-xs-offset-2 col-md-offset-3">
+                             <input type="text" class="form-control" placeholder="Enter title!" ng-model="param.title"><div></div>
+  			                     <input type="text" class="form-control" placeholder="Enter your requirement!" ng-model="param.advertisement">
+                           </div>
+                           <div class="col-xs-2 col-md-1">
+              						   <button type="button" class="btn btn-default" ng-click="advertise();" ><strong>Promote!</strong></button>
+    					             </div>
                          </div>
-                     
+                       </div>
                      </div>
                    </div>
                  </div>
-                         
-               
-              
-
-               </div>
 
                <!-- <div ng-show="!(teams| filter:searchText).length">No Such Team</div> -->
-                     <h3>Team Member</h3> 
-                     
+                     <h3>Team Member</h3>
+
                  <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                    <div class="row">
                      <div class="col-xs-12 col-sm-6 col-md-12">
                        <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
-                        <div class="row" style="margin-left: 10px;">   
+                        <div class="row" style="margin-left: 10px;">
                          <div class="row">
-         <div class="row">
+                           <div class="row">
                   <div class="col-sm-6 col-md-4">
                      <h4>Team Member</h4>
                      <!-- TODO: Show the current team member list -->
@@ -396,7 +340,7 @@
                           <option value="" >Leader to Member</option>
                          </select>
                          &nbsp;
-                         
+
                          <select ng-model="" ng-change="setNLeader(y)" ng-options="y for y in param.teamMembers" id="selectMemberToChange"style="color:black">
                           <option value="" >Member to Leader</option>
                          </select>
@@ -407,18 +351,23 @@
                      <br>
 
            <div ng-repeat="member in param.teamMembers">
-            <button type="button" class="btn btn-default" ng-click="removeMember(member);">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
-            </button>
-            <span style="float:right"><button type="button" class="btn btn-default" ng-click="addleader(member);" >Add Leader</button></span>
-            <br><br>
-           </div>  
+             <div class="row">
+               <div class="col-md-8">
+                <button type="button" class="btn btn-default" ng-click="removeMember(member);">
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
+                </button>
+               </div>
+               <div class="col-md-4">
+                 <span style="float:right"><button type="button" class="btn btn-default" ng-click="addleader(member);" >Add Leader</button></span>
+               </div>
+            </div>
+           </div>
 
-					 <div ng-repeat="member in param.teamMembers">
+					 <!-- <div ng-repeat="member in param.teamMembers">
 						<button type="button" class="btn btn-default" ng-click="removeMember(member);">
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
 						</button>
-					 </div>
+					 </div> -->
 
                   </div>
 
@@ -436,83 +385,41 @@
 				</div>
             </div>
                            </div>
-           
+
          </div>
 
-                             
+
                                  <!-- <button class="btn btn-default"><i class="fa fa-smile-o fa-lg"></i> 62</button>
                                  <button class="btn btn-default"><i class="fa fa-heart-o fa-lg"></i> 54</button>
                                  <button class="btn btn-default"><i class="fa fa-thumbs-o-up fa-lg"></i> 67</button> -->
-                              
+
                          </div>
                        </div>
                      </div>
-                  
-            <h3>All Teams</h3> 
-                     
+            <h3>All Teams</h3>
                  <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                    <div class="row">
                      <div class="col-xs-12 col-sm-6 col-md-12">
                        <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
-                        <div class="row" style="margin-left: 0px;">   
-                        
-        
-                       
-                    
-                     <!-- TODO: Show the current all member list -->
-                    
-                    
-
-
-					<h4>All Teams</h4>
-					<ul ng-repeat="t in team">
-						<li>
-
-							User ID: {{t.$id}}  <br>
-							Preferred team size: <span class="badge">{{t.currentTeamSize}}</span> <br>
-							Current team members: {{t.teamMembers}}
-
-						</li>
-
-					</ul>
-
-			
-					
-
-                 
-                 
-				    
-          
+                        <div class="row" style="margin-left: 0px;">
+                					<h4>All Teams</h4>
+                					<ul ng-repeat="t in team">
+                						<li>
+                							User ID: {{t.$id}}  <br>
+                							Preferred team size: <span class="badge">{{t.currentTeamSize}}</span> <br>
+                							Current team members: {{t.teamMembers}}
+                						</li>
+                					</ul>
                         </div>
-           
-                    </div>
-
-                             
-                                 <!-- <button class="btn btn-default"><i class="fa fa-smile-o fa-lg"></i> 62</button>
-                                 <button class="btn btn-default"><i class="fa fa-heart-o fa-lg"></i> 54</button>
-                                 <button class="btn btn-default"><i class="fa fa-thumbs-o-up fa-lg"></i> 67</button> -->
-                              
-                         </div>
-                       </div>
+                      </div>
                      </div>
-                    
-                    
-                    
+                   </div>
                  </div>
-                         
-               
-              
-
                </div>
-
-                    
-                    
-                    
              </div>
-            
-            </div>
-        
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- <div class="standard-section section-about" id="about">
@@ -844,7 +751,6 @@
     <!-- Log in control -->
     <script src="js/index.js"></script>
     <script src="js/team.js"></script>
-
 
 </body>
 </html>
