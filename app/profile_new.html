@@ -661,12 +661,13 @@ div.user-menu div.user-menu-content:not(.active){
                                       </div>
                                     </div>
                                   <div class="form-group row">
-                                    <label class="col-md-4 control-label">Skills:</label>
                                     <div class="Profileview" >
-                                          <span ng-repeat="p in profile.skills" class="tags">{{p}}</span>
+                                      <label class="col-md-4 control-label">Skills:</label>
+                                      <span ng-repeat="p in profile.skills" class="tags" style="margin-right: 2px;">{{p}}</span>
                                     </div>
                                     <div class="updateProfileview" >
-                                          <button ng-repeat="p in profile.skills" class="btn btn-default" ng-click="removeSkill(p)"><span class="glyphicon glyphicon-remove"></span>{{p}}</button>
+                                      <label class="col-md-4 control-label">Skills:</label>
+                                      <button ng-repeat="p in profile.skills" class="btn btn-default" ng-click="removeSkill(p)"><span class="glyphicon glyphicon-remove"></span>{{p}}</button>
                                     </div>
                                   </div>
                                   <div class="form-group row">
