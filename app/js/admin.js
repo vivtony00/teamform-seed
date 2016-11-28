@@ -140,8 +140,12 @@ app.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$fi
 				}
 
 			}
+
 		})
+			window.location.href= "index.html";
 	};
+
+	$scope.reload = function(){
 	var refPath = "events/" + getURLParameter("q") + "/team";
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
@@ -164,6 +168,9 @@ app.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$fi
 
 			}
 		})
+	}
+
+			$scope.reload();
 			refPath = "events/" + eventName + "/team";
 			$scope.teams = [];
 

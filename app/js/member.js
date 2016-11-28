@@ -87,7 +87,7 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
 			var ref = firebase.database().ref(refPath);
 
 			ref.set(newData, function(){
-				window.location.href= "index_new.html";
+				window.location.href= "index.html";
 			});
 		}
 		});
