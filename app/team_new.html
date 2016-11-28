@@ -360,39 +360,39 @@
                         <div class="row" style="margin-left: 10px;">
                          <div class="row">
                            <div class="row">
-                  <div class="col-sm-6 col-md-6">
-                     <h4>Team Member</h4>
-                     <!-- TODO: Show the current team member list -->
-                     <div>
-                       <div class="row">
-                         <select ng-model="" ng-change="setPLeader(x)" ng-options="x for x in param.teamLeader" id="selectLeaderToBeChanged" style="color:black">
-                          <option value="" >Leader to Member</option>
-                         </select>
-                         &nbsp;
-                       </div>
-                       <div class="row">
-                         <select ng-model="" ng-change="setNLeader(y)" ng-options="y for y in param.teamMembers" id="selectMemberToChange"style="color:black">
-                          <option value="" >Member to Leader</option>
-                         </select>
-                       </div>
-                       <div class="row">
-                        <button type="submit" class="btn btn-default" ng-click="changeleader(pLeader, nLeader)" >Submit</button>
-                      </div>
-                      </div>
-                     <br>
+                  <div class="col-sm-4 col-md-4">
+                                 <h4>Team Member</h4>
+                                 <!-- TODO: Show the current team member list -->
+                                 <div>
+                                   <div class="row">
+                                     <select ng-model="" ng-change="setPLeader(x)" ng-options="x for x in param.teamLeader" id="selectLeaderToBeChanged" style="color:black">
+                                      <option value="" >Leader to Member</option>
+                                     </select>
+                                     &nbsp;
+                                   </div>
+                                   <div class="row">
+                                     <select ng-model="" ng-change="setNLeader(y)" ng-options="y for y in param.teamMembers" id="selectMemberToChange"style="color:black">
+                                      <option value="" >Member to Leader</option>
+                                     </select>
+                                   </div>
+                                   <div class="row">
+                                    <button type="submit" class="btn btn-default" ng-click="changeleader(pLeader, nLeader)" >Submit</button>
+                                  </div>
+                                  </div>
+                                 <br>
 
-           <div ng-repeat="member in param.teamMembers">
-             <div class="row">
-               <div class="col-md-8">
-                <button type="button" class="btn btn-default" ng-click="removeMember(member);">
-                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
-                </button>
-               </div>
-               <div class="col-md-4">
-                 <span style="float:right"><button type="button" class="btn btn-default" ng-click="addleader(member);" >Add Leader</button></span>
-               </div>
-            </div>
-           </div>
+                       <div ng-repeat="member in param.teamMembers">
+                         <div class="row">
+                           <div class="col-md-8">
+                            <button type="button" class="btn btn-default" ng-click="removeMember(member);">
+                              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
+                            </button>
+                           </div>
+                           <div class="col-md-4">
+                             <span style="float:right"><button type="button" class="btn btn-default" ng-click="addleader(member);" >Add Leader</button></span>
+                           </div>
+                        </div>
+                       </div>
 
 					 <!-- <div ng-repeat="member in param.teamMembers">
 						<button type="button" class="btn btn-default" ng-click="removeMember(member);">
@@ -402,20 +402,87 @@
 
                   </div>
 
-                  <div class="col-sm-6">
+                  <div class="col-sm-3">
                      <h4>Requests received:</h4>
 
                      <!--TODO: Show the requests -->
 
-					 <div ng-repeat="r in requests">
-						<button type="button" class="btn btn-default" ng-click="processRequest(r);">
-							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
-						</button>
-					 </div>
+            					 <div ng-repeat="r in requests">
+            						<button type="button" class="btn btn-default" ng-click="processRequest(r);">
+            							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
+            						</button>
+            					 </div>
                   </div>
-				</div>
-            </div>
-                           </div>
+
+                  <div class="col-sm-5" >
+                    <h4>Chat Room</h4>
+                      <div id="firechat-wrapper"></div>
+                      <script type="text/javascript">
+
+                        // Initialize Firebase SDK
+
+                     var config = {
+                        apiKey: "AIzaSyAquft9UUOycldBxHWyG2toWPEsUgbOW34",
+                        authDomain: "team-long-time-no-name.firebaseapp.com",
+                        databaseURL: "https://team-long-time-no-name.firebaseio.com",
+                          storageBucket: "team-long-time-no-name.appspot.com",
+                        messagingSenderId: "7595823211"
+                     };
+
+                        firebase.initializeApp(config);
+
+                        // Get a reference to the Firebase Realtime Database
+                        var chatRef = firebase.database().ref('chatroom');
+
+                        // Create an instance of Firechat
+                        var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
+
+                        // Listen for authentication state changes
+                        firebase.auth().onAuthStateChanged(function(user) {
+                          if (user) {
+                            // If the user is logged in, set them as the name they use in profile
+
+                            //get the latest name in 'profile'
+                            var userDataRef = firebase.database().ref("profile/" + user.uid+ "/name");
+
+                            //get the username used last time in chatroom
+                            var lastUsernameInChatroomPath = firebase.database().ref("chatroom/users/" + user.uid+ "/name");
+                            var lastUsernameInChatroom;
+                            lastUsernameInChatroomPath.once("value").then(function(snapshot){
+                              lastUsernameInChatroom = snapshot.val();
+                            });
+
+                            userDataRef.on("value", function(snapshot){
+                              //automatically change user name in chatroom database whenever the name is changed on 'profile'
+                              //or when user first time uses chatroom
+
+                              //if username is changed, change the name in chatroom database
+                              if(snapshot.val() != lastUsernameInChatroom)
+                              {
+                                firebase.database().ref("chatroom/users/" + user.uid).set({
+                                  name: snapshot.val()
+                                });
+                              }
+                              //set up user for entering chatroom with latest name
+                              chat.setUser(user.uid, snapshot.val());
+                            });
+                            //chat.setUser(user.uid, userDataRef.child("name")); //"Anonymous" + user.uid.substr(10, 8)); //user.name);//
+                          } else {
+                            // If the user is not logged in, sign them in anonymously
+                            firebase.auth().signInAnonymously().catch(function(error) {
+                              console.log("Error signing user in anonymously:", error);
+                            });
+                          }
+                        });
+                      </script>
+
+                  </div>
+
+
+
+				            </div>
+                  </div>
+                </div>
 
          </div>
 
@@ -427,79 +494,7 @@
                          </div>
                        </div>
                      </div>
-                     <h3>Chat Room</h3>
-                     <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
-                       <div class="row">
-                         <div class="col-xs-12 col-sm-6 col-md-12">
-                           <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
-                            <div class="row" style="margin-left: 0px;">
-                              <div>
-                                <div id="firechat-wrapper"></div>
-                                <script type="text/javascript">
-
-                                  // Initialize Firebase SDK
-
-                             	 var config = {
-                              	 	apiKey: "AIzaSyAquft9UUOycldBxHWyG2toWPEsUgbOW34",
-                               	 	authDomain: "team-long-time-no-name.firebaseapp.com",
-                               	 	databaseURL: "https://team-long-time-no-name.firebaseio.com",
-                              	  	storageBucket: "team-long-time-no-name.appspot.com",
-                              	 	messagingSenderId: "7595823211"
-                             	 };
-
-                                  firebase.initializeApp(config);
-
-                                  // Get a reference to the Firebase Realtime Database
-                                  var chatRef = firebase.database().ref('chatroom');
-
-                                  // Create an instance of Firechat
-                                  var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
-
-                                  // Listen for authentication state changes
-                                  firebase.auth().onAuthStateChanged(function(user) {
-                                    if (user) {
-                                      // If the user is logged in, set them as the name they use in profile
-
-                                      //get the latest name in 'profile'
-                                      var userDataRef = firebase.database().ref("profile/" + user.uid+ "/name");
-
-                                      //get the username used last time in chatroom
-                                      var lastUsernameInChatroomPath = firebase.database().ref("chatroom/users/" + user.uid+ "/name");
-                                      var lastUsernameInChatroom;
-                                      lastUsernameInChatroomPath.once("value").then(function(snapshot){
-                                      	lastUsernameInChatroom = snapshot.val();
-                                      });
-
-                                      userDataRef.on("value", function(snapshot){
-                                      	//automatically change user name in chatroom database whenever the name is changed on 'profile'
-                                      	//or when user first time uses chatroom
-
-                                      	//if username is changed, change the name in chatroom database
-                                      	if(snapshot.val() != lastUsernameInChatroom)
-                                      	{
-                                      		firebase.database().ref("chatroom/users/" + user.uid).set({
-                                      			name: snapshot.val()
-                                      		});
-                                      	}
-                                      	//set up user for entering chatroom with latest name
-                                      	chat.setUser(user.uid, snapshot.val());
-                                      });
-                                      //chat.setUser(user.uid, userDataRef.child("name")); //"Anonymous" + user.uid.substr(10, 8)); //user.name);//
-                                    } else {
-                                      // If the user is not logged in, sign them in anonymously
-                                      firebase.auth().signInAnonymously().catch(function(error) {
-                                        console.log("Error signing user in anonymously:", error);
-                                      });
-                                    }
-                                  });
-                                </script>
-                              </div>
-
-                            </div>
-                          </div>
-                         </div>
-                       </div>
-                     </div>
+                     
 
 
             <h3>All Teams</h3>
