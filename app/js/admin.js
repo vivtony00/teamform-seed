@@ -91,6 +91,59 @@ app.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$fi
 		window.location.href= "index.html";
 	}
 
+	$scope.autoadd = function(){
+		  var eventName = "/events/"+ getURLParameter("q") +"/member/";
+		  console.log(eventName);
+		  var ref = firebase.database().ref(eventName);
+		  var event = $firebaseArray(ref);
+		  console.log(event);
+
+		  var teamPath ="/events/"+ getURLParameter("q") + "/team/";
+		  var teams = firebase.database().ref(teamPath);
+		  var team = $firebaseArray(teams);
+
+		event.$loaded().then( function(data){
+			outerloop:
+		  for( var mem in event){
+			  if(mem != null && typeof mem != "undefined"){
+					if ( typeof event[mem].selection != "undefined" && typeof event[mem].selection != "null"){
+					  for(var cteam in team){
+						     if(typeof team[cteam]["$id"] != "undefined"){
+							  	 if ( typeof team[cteam].teamMembers != "undefined" && typeof team[cteam].teamMembers != "null"){
+											if( team[cteam].teamMembers.length + team[cteam].currentTeamLeaderSize < team[cteam].currentTeamSize){
+										// console.log("have space");
+										event[mem].selection =[];
+										firebase.database().ref("/events/"+getURLParameter("q") +"/member/" + event[mem]["$id"] ).child('selection').set(null);
+
+										team[cteam].teamMembers.push(event[mem]["$id"]);
+										firebase.database().ref("/events/"+getURLParameter("q") +"/team/" + team[cteam]["$id"] ).child('teamMembers').set(
+										team[cteam].teamMembers);
+
+										continue outerloop;
+									}
+								 }
+								else{
+									// console.log("teammember not defined");
+									event[mem].selection =[];
+									firebase.database().ref("/events/"+getURLParameter("q") +"/member/" + event[mem]["$id"] ).child('selection').set(null);
+									team[cteam].teamMembers=[];
+									team[cteam].teamMembers.push(event[mem]["$id"]);
+									firebase.database().ref("/events/"+getURLParameter("q") +"/team/" + team[cteam]["$id"] ).child('teamMembers').set(
+										team[cteam].teamMembers);
+										continue outerloop;
+								}
+
+							}
+						}
+
+					}
+				}
+
+			}
+		})
+	};
+
+
 
 }]);
 
