@@ -73,8 +73,17 @@
 						</div>
 					</div>
 					 <div class="col-md-8 col-xs-8">
-							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter wanted personality" ng-model="param.wantedPersonalities">
-					</div>
+             Wanted Personality :
+              <select class="selectpicker" ng-model="param.wantedPersonalities">
+               <option>king</option>
+               <option>queen</option>
+               <option>knight</option>
+               <option>bishop</option>
+               <option>tower</option>
+               <option>pawn</option>
+              </select>
+          </div>
+          
           <div class="col-md-8 col-xs-8">
             Wanted Horoscope :
             <select class="selectpicker" ng-model="param.wantedHoroscopes">

@@ -178,9 +178,6 @@
                             <a href="profile.html">Profile</a>
                           </li>
                           <li>
-                            <a href="myevent.html">(TODO)My event</a>
-                          </li>
-                          <li>
                             <button id="btn_login_out" type="submit" class="btn btn-default btn-block" ng-click="signOut();">Logout</button>
                           </li>
                         </ul>
@@ -350,6 +347,11 @@
                    </div>
                  </div>
 
+
+
+
+
+
                <!-- <div ng-show="!(teams| filter:searchText).length">No Such Team</div> -->
                      <h3>Team Member</h3>
 
@@ -360,7 +362,31 @@
                         <div class="row" style="margin-left: 10px;">
                          <div class="row">
                            <div class="row">
+
+
+
                   <div class="col-sm-4 col-md-4">
+                    <h4>Team Leader</h4>
+                    <!-- TODO: Show the current team member list -->
+                    <br>
+
+          <div ng-repeat="leader in param.teamLeaders">
+            <div class="row">
+              <div class="btn-group">
+                   <button type="button" class="btn btn-warning" ng-click="">
+                     <span  aria-hidden="true"></span> {{leader.name}} <img ng-src="{{leader.pic}}" height="20" width="20" class="img-circle"></img>
+                   </button>
+                   <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <span class="caret"></span>
+                     <span class="sr-only">Toggle Dropdown</span>
+                   </button>
+                   <ul class="dropdown-menu">
+                     <li><a ng-href="/profile.html?uid={{leader.uid}}" target="_blank">Profile</a></li>
+                   </ul>
+                 </div>
+           </div>
+          </div>
+
                                  <h4>Team Member</h4>
                                  <!-- TODO: Show the current team member list -->
                                  <div>
@@ -383,14 +409,19 @@
 
                        <div ng-repeat="member in param.teamMembers">
                          <div class="row">
-                           <div class="col-md-8">
-                            <button type="button" class="btn btn-default" ng-click="removeMember(member);">
-                              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
-                            </button>
-                           </div>
-                           <div class="col-md-4">
-                             <span style="float:right"><button type="button" class="btn btn-default" ng-click="addleader(member);" >Add Leader</button></span>
-                           </div>
+                           <div class="btn-group">
+                                <button type="button" class="btn btn-warning" ng-click="removeMember(member.uid)">
+                                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member.name}} <img ng-src="{{member.pic}}" height="20" width="20" class="img-circle"></img>
+                                </button>
+                                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <span class="caret"></span>
+                                  <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a ng-href="/profile.html?uid={{member.uid}}" target="_blank">Profile</a></li>
+                                  <li><a ng-click="addleader(member.uid)" class="menu_links" onmouseover="" style="cursor: pointer;">Add Leader</a></li>
+                                </ul>
+                              </div>
                         </div>
                        </div>
 
@@ -408,9 +439,21 @@
                      <!--TODO: Show the requests -->
 
             					 <div ng-repeat="r in requests">
-            						<button type="button" class="btn btn-default" ng-click="processRequest(r);">
-            							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
-            						</button>
+                         <div class="btn-group">
+                              <button type="button" class="btn btn-warning" ng-click="processRequest(r.uid)">
+                                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r.name}} <img ng-src="{{r.pic}}" height="20" width="20" class="img-circle"></img>
+                              </button>
+                              <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a ng-href="/profile.html?uid={{r.uid}}" target="_blank">Profile</a></li>
+                              </ul>
+                            </div>
+            						<!-- <button type="button" class="btn btn-default" ng-click="processRequest(r.uid);">
+            							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r.name}}<img ng-src="{{r.pic}}" height="20" width="20"></img>
+            						</button> -->
             					 </div>
                   </div>
 
@@ -494,11 +537,59 @@
                          </div>
                        </div>
                      </div>
-                     
+
 
 
             <h3>All Teams</h3>
-                 <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+            <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-10p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+              <div ng-repeat="team in team">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-12">
+                    <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
+                      <div class="row">
+                        <div class="col-sm-6 col-md-2">
+                         <div ng-repeat="teamleader in team.teamLeaders">
+                           <a ng-href="/profile.html?uid={{teamleader.uid}}">
+                              <img src="{{teamleader.pic}}" class="img-circle img-responsive" draggable="false" />
+                           </a>
+                         </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                          <h4>{{team.$id}}</h4>
+                          <p>
+                            <i class="glyphicon glyphicon-star"></i> wanted:{{team.wantedHoroscopes}} <br />
+                            <i class="glyphicon glyphicon-education"></i> wanted:
+                            <span ng-repeat="skill in team.wantedSkills">
+                              {{skill}}
+                            </span>
+                            <br />
+                            <i class="glyphicon glyphicon-king"></i> wanted: {{team.wantedPersonalities}}
+                          </p>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                          <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{team.teamMembers.length+team.currentTeamLeaderSize}} / {{team.currentTeamSize}}</span>
+                          <h4>Description</h4>
+                          <p>{{team.desc}}</p>
+
+                        </div>
+                        <div class="col-sm-6 col-md-12">
+                          <div class="row nav">
+                            <div class="col-md-12" style="margin: 0px;">
+                              <hr style="margin-bottom: 5px;margin-top: 5px;">
+                              members:
+                              <span ng-repeat="member in team.teamMembers">
+                                <a ng-href="/profile.html?uid={{member.uid}}"><img ng-src="{{member.pic}}" height="50" width="50" class="img-circle"></img></a>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                 <!-- <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                    <div class="row">
                      <div class="col-xs-12 col-sm-6 col-md-12">
                        <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
@@ -515,7 +606,7 @@
                       </div>
                      </div>
                    </div>
-                 </div>
+                 </div> -->
                </div>
              </div>
           </div>
