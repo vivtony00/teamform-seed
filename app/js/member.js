@@ -64,16 +64,16 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
 
 
 	$scope.saveFunc = function() {
-		var userName = "";
-		var userID = $.trim( $scope.uid );
+		var userName = $.trim( $scope.userName );
+		var userID = $.trim( $scope.userID );
 		// var userName = $.trim( $scope.userName );
 		console.log($scope.uid);
 		var userprofile = getProfile($scope.uid);
 		console.log(userprofile);
-		userprofile.$loaded().then(function(profile){
-			var userName = userprofile.name;
-			console.log(userName);
-		});
+		// userprofile.$loaded().then(function(profile){
+		// 	var userName = userprofile.name;
+		// 	console.log(userName);
+		// });
 
 		if ( userID !== '' ) {
 			var newData = {
@@ -85,7 +85,7 @@ app.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$f
 			var ref = firebase.database().ref(refPath);
 
 			ref.set(newData, function(){
-				window.location.href= "index.html";
+				// window.location.href= "index.html";
 			});
 		}
 	}
