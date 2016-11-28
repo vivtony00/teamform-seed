@@ -689,12 +689,12 @@ div.user-menu div.user-menu-content:not(.active){
                                         </Label>
                                           <input type="file" id="file" name="file" style="visibility:hidden;" >
                                         <!-- <button class="btn btn-info btn-block" ng-click="showme=true;ShowQ()"><span class="fa fa-user"></span> Personality Test </button> -->
-                                        <div class="col-xs-6 updateProfileview" ng-hide="check">
+                                        <!-- <div class="col-xs-6 updateProfileview" ng-hide="check">
                                           <button class="btn btn-primary" id="uploadButton" ng-click="uploadFile();">
                                   					<span class="glyphicon glyphicon-ok">SAVE</span>
 
                                   				</button>
-                                        </div>
+                                        </div> -->
                                         <div class="col-xs-6 updateProfileview" ng-hide="check">
                                           <button class="btn btn-primary" type="button" ng-click="removeFile();">
                                   					<span class="glyphicon glyphicon-remove">Remove</span>
@@ -744,9 +744,11 @@ div.user-menu div.user-menu-content:not(.active){
                                       <h2><strong>{{profile.personality}}</strong></h2>
                                     </div>
                                   </div>
-                                  <a href="#TEST">
-                                    <button class="btn btn-info btn-block" ng-click="showme=true;ShowQ()"><span class="fa fa-user"></span> Personality Test </button>
-                                  </a>
+
+                                      <a href="#TEST" >
+                                        <button class="btn btn-info btn-block" ng-hide="check" ng-click="showme=true;ShowQ()"><span class="fa fa-user"></span> Personality Test </button>
+                                      </a>
+
                                 </div>
                                 <div class="col-xs-12 col-sm-4 emphasis">
                                   <div class="hex-shape row"style="margin-bottom: 0px;">
