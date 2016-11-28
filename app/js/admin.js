@@ -142,6 +142,65 @@ app.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$fi
 			}
 		})
 	};
+	var refPath = "events/" + getURLParameter("q") + "/team";
+	$scope.team = [];
+	$scope.team = $firebaseArray(firebase.database().ref(refPath));
+	$scope.team.$loaded()
+		.then( function(data) {
+			// console.log("$scope.teams.$loaded.then");
+			console.log($scope.team);
+			for (var team in $scope.team) {
+				console.log($scope.team[team]);
+				for(var leader in $scope.team[team].teamLeaders){
+					var leaderid = $scope.team[team].teamLeaders[leader];
+					$scope.team[team].teamLeaders[leader] = getProfile(leaderid);
+				}
+				for(var member in $scope.team[team].teamMembers){
+					console.log($scope.team[team].teamMembers[member]);
+					var uid = $scope.team[team].teamMembers[member];
+					$scope.team[team].teamMembers[member] = getProfile(uid);
+					// member.profile.$loaded().then(function(aa){console.log(aa);});
+				}
+
+			}
+		})
+			refPath = "events/" + eventName + "/team";
+			$scope.teams = [];
+
+		$scope.teams = $firebaseArray(firebase.database().ref(refPath));
+		// console.log($scope.teams);
+		$scope.teams.$loaded()
+			.then( function(data) {
+				// console.log("$scope.teams.$loaded.then");
+				// console.log($scope.teams);
+				for (var team in $scope.teams) {
+					// console.log(team);
+					for(var leader in $scope.teams[team].teamLeaders){
+						var leaderid = $scope.teams[team].teamLeaders[leader];
+						$scope.teams[team].teamLeaders[leader] = getProfile(leaderid);
+					}
+					for(var member in $scope.teams[team].teamMembers){
+						// console.log($scope.teams[team].teamMembers[member]);
+						var uid = $scope.teams[team].teamMembers[member];
+						$scope.teams[team].teamMembers[member] = getProfile(uid);
+						// member.profile.$loaded().then(function(aa){console.log(aa);});
+					}
+					// $scope.loadFunc();
+				}
+			})
+
+		var getProfile = function(uid){
+		var path= "profile/"+uid;
+		var ref = firebase.database().ref(path);
+		var profile = $firebaseObject(ref);
+		profile.$loaded()
+			.catch(function(error) {
+				$scope.error = error.message;
+				console.error("Error:", error);
+			});
+		return profile;
+		}
+		this.getProfile = getProfile;
 
 
 
@@ -202,17 +261,17 @@ app.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$fir
     $scope.auth.$signOut();
   }
 
-  var getProfile = function(uid){
-    var path= "profile/"+uid;
-    var ref = firebase.database().ref(path);
-    $scope.profile = $firebaseObject(ref);
-    $scope.profile.$loaded()
-      .catch(function(error) {
-        $scope.error = error.message;
-        console.error("Error:", error);
-      });
-    return $scope.profile;
-  }
+	var getProfile = function(uid){
+	var path= "profile/"+uid;
+	var ref = firebase.database().ref(path);
+	var profile = $firebaseObject(ref);
+	profile.$loaded()
+		.catch(function(error) {
+			$scope.error = error.message;
+			console.error("Error:", error);
+		});
+	return profile;
+	}
   this.getProfile = getProfile;
 
   $scope.auth.$onAuthStateChanged(function(firebaseUser) {
@@ -228,6 +287,7 @@ app.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$fir
       console.log("Signed out");
     }
   });
+
 
 
 }]);
