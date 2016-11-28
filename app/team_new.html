@@ -360,22 +360,24 @@
                         <div class="row" style="margin-left: 10px;">
                          <div class="row">
                            <div class="row">
-                  <div class="col-sm-6 col-md-4">
+                  <div class="col-sm-6 col-md-6">
                      <h4>Team Member</h4>
                      <!-- TODO: Show the current team member list -->
                      <div>
-                        <span>
+                       <div class="row">
                          <select ng-model="" ng-change="setPLeader(x)" ng-options="x for x in param.teamLeader" id="selectLeaderToBeChanged" style="color:black">
                           <option value="" >Leader to Member</option>
                          </select>
                          &nbsp;
-
+                       </div>
+                       <div class="row">
                          <select ng-model="" ng-change="setNLeader(y)" ng-options="y for y in param.teamMembers" id="selectMemberToChange"style="color:black">
                           <option value="" >Member to Leader</option>
                          </select>
-                        </span>
+                       </div>
+                       <div class="row">
                         <button type="submit" class="btn btn-default" ng-click="changeleader(pLeader, nLeader)" >Submit</button>
-
+                      </div>
                       </div>
                      <br>
 
