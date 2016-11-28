@@ -45,6 +45,35 @@
     <!-- Favicon -->
     <link rel="icon" href="img/favicon.png" type="image/png">
 
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+
+    <!-- Firechat -->
+    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.css" />
+    <script src="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.js"></script>
+
+    <!-- Custom CSS -->
+    <style>
+      #firechat-wrapper {
+        height: 475px;
+        max-width: 325px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        margin: 50px auto;
+        text-align: center;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 5px 25px #666;
+        -moz-box-shadow: 0 5px 25px #666;
+        box-shadow: 0 5px 25px #666;
+      }
+    </style>
+
 </head>
 
 <body data-spy="scroll" data-offset="122" data-target="#main-menu" data-skrollr="true">
@@ -396,6 +425,81 @@
                          </div>
                        </div>
                      </div>
+                     <h3>Chat Room</h3>
+                     <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+                       <div class="row">
+                         <div class="col-xs-12 col-sm-6 col-md-12">
+                           <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
+                            <div class="row" style="margin-left: 0px;">
+                              <div>
+                                <div id="firechat-wrapper"></div>
+                                <script type="text/javascript">
+
+                                  // Initialize Firebase SDK
+
+                             	 var config = {
+                              	 	apiKey: "AIzaSyAquft9UUOycldBxHWyG2toWPEsUgbOW34",
+                               	 	authDomain: "team-long-time-no-name.firebaseapp.com",
+                               	 	databaseURL: "https://team-long-time-no-name.firebaseio.com",
+                              	  	storageBucket: "team-long-time-no-name.appspot.com",
+                              	 	messagingSenderId: "7595823211"
+                             	 };
+
+                                  firebase.initializeApp(config);
+
+                                  // Get a reference to the Firebase Realtime Database
+                                  var chatRef = firebase.database().ref('chatroom');
+
+                                  // Create an instance of Firechat
+                                  var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
+
+                                  // Listen for authentication state changes
+                                  firebase.auth().onAuthStateChanged(function(user) {
+                                    if (user) {
+                                      // If the user is logged in, set them as the name they use in profile
+
+                                      //get the latest name in 'profile'
+                                      var userDataRef = firebase.database().ref("profile/" + user.uid+ "/name");
+
+                                      //get the username used last time in chatroom
+                                      var lastUsernameInChatroomPath = firebase.database().ref("chatroom/users/" + user.uid+ "/name");
+                                      var lastUsernameInChatroom;
+                                      lastUsernameInChatroomPath.once("value").then(function(snapshot){
+                                      	lastUsernameInChatroom = snapshot.val();
+                                      });
+
+                                      userDataRef.on("value", function(snapshot){
+                                      	//automatically change user name in chatroom database whenever the name is changed on 'profile'
+                                      	//or when user first time uses chatroom
+
+                                      	//if username is changed, change the name in chatroom database
+                                      	if(snapshot.val() != lastUsernameInChatroom)
+                                      	{
+                                      		firebase.database().ref("chatroom/users/" + user.uid).set({
+                                      			name: snapshot.val()
+                                      		});
+                                      	}
+                                      	//set up user for entering chatroom with latest name
+                                      	chat.setUser(user.uid, snapshot.val());
+                                      });
+                                      //chat.setUser(user.uid, userDataRef.child("name")); //"Anonymous" + user.uid.substr(10, 8)); //user.name);//
+                                    } else {
+                                      // If the user is not logged in, sign them in anonymously
+                                      firebase.auth().signInAnonymously().catch(function(error) {
+                                        console.log("Error signing user in anonymously:", error);
+                                      });
+                                    }
+                                  });
+                                </script>
+                              </div>
+
+                            </div>
+                          </div>
+                         </div>
+                       </div>
+                     </div>
+
+
             <h3>All Teams</h3>
                  <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
                    <div class="row">
@@ -751,6 +855,7 @@
     <!-- Log in control -->
     <script src="js/index.js"></script>
     <script src="js/team.js"></script>
+    <script src="js/firechat.js"></script>
 
 </body>
 </html>
