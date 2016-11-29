@@ -335,74 +335,6 @@
          <hr>
          <span>All Teams</span>
           <button type="button" class="btn btn-default" ng-click="autoadd()"  >AutoAdd</button>
-         <div class="standard-section section-about" id="about">
-             <div class="container">
-                 <div class="text-center">
-         <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-10p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
-           <div ng-repeat="team in teams">
-             <div class="row">
-               <div class="col-xs-12 col-sm-6 col-md-12">
-                 <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
-                   <div class="row">
-                     <div class="col-sm-6 col-md-2">
-                      <div ng-repeat="teamleader in team.teamLeaders">
-                        <a ng-href="/profile.html?uid={{teamleader.uid}}">
-                           <img src="{{teamleader.pic}}" class="img-circle img-responsive" draggable="false" />
-                        </a>
-                      </div>
-                     </div>
-                     <div class="col-sm-6 col-md-4">
-                       <h4>{{team.$id}}</h4>
-                       <p>
-                         <i class="glyphicon glyphicon-star"></i> wanted:{{team.wantedHoroscopes}} <br />
-                         <i class="glyphicon glyphicon-education"></i> wanted:
-                         <span ng-repeat="skill in team.wantedSkills">
-                           {{skill}}
-                         </span>
-                         <br />
-                         <i class="glyphicon glyphicon-king"></i> wanted: {{team.wantedPersonalities}}
-                       </p>
-                     </div>
-                     <div class="col-sm-6 col-md-6">
-                       <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{team.teamMembers.length+team.currentTeamLeaderSize}} / {{team.currentTeamSize}}</span>
-                       <h4>Description</h4>
-                       <p>{{team.desc}}</p>
-
-                     </div>
-                     <div class="col-sm-6 col-md-12">
-                       <div class="row nav">
-                         <div class="col-md-12" style="margin: 0px;">
-                           <hr style="margin-bottom: 5px;margin-top: 5px;">
-                           members:
-                           <span ng-repeat="member in team.teamMembers">
-                             <a ng-href="/profile.html?uid={{member.uid}}"><img ng-src="{{member.pic}}" height="50" width="50" class="img-circle"></img></a>
-                           </span>
-                           <!-- <button class="btn btn-default"><i class="fa fa-smile-o fa-lg"></i> 62</button>
-                           <button class="btn btn-default"><i class="fa fa-heart-o fa-lg"></i> 54</button>
-                           <button class="btn btn-default"><i class="fa fa-thumbs-o-up fa-lg"></i> 67</button> -->
-
-
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-          <!-- <div class="checkbox">
-           <label><input type="checkbox" value="{{team.$id}}"
-             ng-checked="selection.indexOf(team.$id) > -1"
-             ng-click="toggleSelection(team.$id)">
-           {{team.$id}}:{{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}}
-           {{team.teamMembers}}
-           </label>
-          </div> -->
-
-         </div>
-                  </div>
-            </div>
-       </div>
 
 		 <div class="row">
 		 <!-- <div class="col-md-6 col-xs-6 text-right" >
@@ -436,15 +368,80 @@
 		 </div> -->
 
 
+          </div>
+        </div>
       </div>
-   </div>
-
-
-
-
-                </div>
-                    </div>
+    </div>
+  </div>
+</div>
+<div class="standard-section section-about" id="about">
+    <div class="container" ng-controller="AdminCtrl">
+        <div class="text-center">
+            <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-10p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+              <div ng-repeat="team in teams">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-12">
+                    <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
+                      <div class="row">
+                        <div class="col-sm-6 col-md-2">
+                         <div ng-repeat="teamleader in team.teamLeaders">
+                           <a ng-href="/profile.html?uid={{teamleader.uid}}">
+                              <img src="{{teamleader.pic}}" class="img-circle img-responsive" draggable="false" />
+                           </a>
+                         </div>
                         </div>
+                        <div class="col-sm-6 col-md-4">
+                          <h4>{{team.$id}}</h4>
+                          <p>
+                            <i class="glyphicon glyphicon-star"></i> wanted:{{team.wantedHoroscopes}} <br />
+                            <i class="glyphicon glyphicon-education"></i> wanted:
+                            <span ng-repeat="skill in team.wantedSkills">
+                              {{skill}}
+                            </span>
+                            <br />
+                            <i class="glyphicon glyphicon-king"></i> wanted: {{team.wantedPersonalities}}
+                          </p>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                          <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{team.teamMembers.length+team.currentTeamLeaderSize}} / {{team.currentTeamSize}}</span>
+                          <h4>Description</h4>
+                          <p>{{team.desc}}</p>
+
+                        </div>
+                        <div class="col-sm-6 col-md-12">
+                          <div class="row nav">
+                            <div class="col-md-12" style="margin: 0px;">
+                              <hr style="margin-bottom: 5px;margin-top: 5px;">
+                              members:
+                              <span ng-repeat="member in team.teamMembers">
+                                <a ng-href="/profile.html?uid={{member.uid}}"><img ng-src="{{member.pic}}" height="50" width="50" class="img-circle"></img></a>
+                              </span>
+                              <!-- <button class="btn btn-default"><i class="fa fa-smile-o fa-lg"></i> 62</button>
+                              <button class="btn btn-default"><i class="fa fa-heart-o fa-lg"></i> 54</button>
+                              <button class="btn btn-default"><i class="fa fa-thumbs-o-up fa-lg"></i> 67</button> -->
+
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             <!-- <div class="checkbox">
+              <label><input type="checkbox" value="{{team.$id}}"
+                ng-checked="selection.indexOf(team.$id) > -1"
+                ng-click="toggleSelection(team.$id)">
+              {{team.$id}}:{{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}}
+              {{team.teamMembers}}
+              </label>
+             </div> -->
+
+            </div>
+         </div>
+   </div>
+</div>
 
 
 
