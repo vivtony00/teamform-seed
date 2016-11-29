@@ -1,239 +1,949 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="teamform-team-app">
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="keywords" content="teamform, team">
-      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <title>teamform - team page</title>
+<html lang="en" class="no-js" ng-app="teamform-team-app">
 
-      <!-- libraries and CSS
-		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)
-		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
-		Font-awesome: More icons for the web development (v4.6.3 is used)
-		site.css: A customized css for our web application. Not from any web framework.
-	  -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="teamform, team">
+        <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>teamform - A real-time online team forming app</title>
 
-      <script src="lib/jquery.min.js"></script>
-      <script src="lib/bootstrap.min.js"></script>
+    <!-- Customized libraries shared by pages -->
+    <script src="js/site.js"></script>
 
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-      <link rel="stylesheet" href="css/site.css" >
+    <!-- Press Start 2P Font -->
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&subset=cyrillic,greek,latin-ext" rel="stylesheet">
 
+    <!-- Lato Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
-      <!-- Customized libraries shared by pages -->
-      <script src="js/site.js"></script>
+    <!-- Bootstrap styles -->
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
 
-   </head>
-   <body>
-	<div ng-include = "'navbar.html'"> </div>
-    <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >
-   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-   Back</button></a>
-   <br>
+    <!-- Font Awesome -->
+    <link href="css/font-awesome.min.css" media="screen" rel="stylesheet" type="text/css">
 
-   <div class="text-center">
+    <!-- Lightbox styles -->
+    <link href="lightbox/css/lightbox.css" rel="stylesheet">
 
-      <h1>Team Page</h1>
-      <h2 id="text_event_name"></h2>
-       <div id="team_page_controller" ng-controller="TeamCtrl">
+    <!-- Charts styles -->
+    <link href="css/morris.min.css" media="screen" rel="stylesheet" type="text/css">
 
-         <div class="row">
+    <!-- Loaders styles -->
+    <link href="loaders.css-master/loaders.min.css" media="screen" rel="stylesheet" type="text/css">
 
-            <div class="col-md-2 col-xs-2"></div>
+    <!-- Custom styles -->
+    <link href="css/styles.min.css" media="screen" rel="stylesheet" type="text/css">
 
-            <div class="col-md-6 col-xs-6 text-left panel">
+    <!-- Responsive styles -->
+    <link href="css/responsive.min.css" media="screen" rel="stylesheet" type="text/css">
 
+    <!-- Modernizr -->
+    <script type="text/javascript" src="js/modernizr.custom.js"></script>
 
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.png" type="image/png">
 
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-               <!-- Controls go here.. -->
-                <form class="form-horizontal text-left">
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
 
-                  <div class="form-group">
-						<button type="button" class="btn btn-primary" ng-click="autoadd()" >AutoAdd</button>
-                     <label for="inputTeamName" class="control-label">Team Name</label>
-					 <br>
+    <!-- Firechat -->
+    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.css" />
+    <script src="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.js"></script>
 
-					 <div class="row">
-						 <div class="col-md-8 col-xs-8">
-							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">
-						 </div>
+    <!-- Custom CSS -->
+    <style>
+      #firechat-wrapper {
+        height: 475px;
+        max-width: 325px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        margin: 50px auto;
+        text-align: center;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 5px 25px #666;
+        -moz-box-shadow: 0 5px 25px #666;
+        box-shadow: 0 5px 25px #666;
+      }
+    </style>
 
-						<div class="col-md-1 col-xs-1">
-						   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add</button>
-						 </div>
+</head>
 
-						 <div class="col-md-1 col-xs-1">
-							<button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
-						</div>
-					</div>
-					 <div class="col-md-8 col-xs-8">
-             Wanted Personality :
-              <select class="selectpicker" ng-model="param.wantedPersonalities">
-               <option>king</option>
-               <option>queen</option>
-               <option>knight</option>
-               <option>bishop</option>
-               <option>tower</option>
-               <option>pawn</option>
-              </select>
-          </div>
-          
-          <div class="col-md-8 col-xs-8">
-            Wanted Horoscope :
-            <select class="selectpicker" ng-model="param.wantedHoroscopes">
-             <option>Aries</option>
-             <option>Taurus</option>
-             <option>Gemini</option>
-             <option>Cancer</option>
-             <option>Leo</option>
-             <option>Virgo</option>
-             <option>Libra</option>
-             <option>Scorpio</option>
-             <option>Sagittarius</option>
-             <option>Capricorn</option>
-             <option>Aquarius</option>
-             <option>Pisces</option>
-            </select>
-         </div>
-         <div class="col-md-8 col-xs-8">
-            <input type="text" class="form-control" id="inputDesc" placeholder="Enter Description" ng-model="param.desc">
+<body data-spy="scroll" data-offset="122" data-target="#main-menu" data-skrollr="true">
+
+    <div class="loader-overlay">
+        <div class="loader">
+            <div class="loader-inner pacman">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <h3 class="loader-text">Loading</h3>
         </div>
+    </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="LoginCtrl">
+        <div class="triangle">
+            <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+        </div>
+        <div class="header-top clearfix">
+            <div class="container">
+                <ul class="list-inline social-links">
+                    <!-- <li>
+                        <a href="#" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a href="#" title="Skype"><i class="fa fa-skype"></i></a>
+                    </li><li class="hidden-xxs">
+                        <a href="#" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                    </li><li class="hidden-xxs">
+                        <a href="#" title="Google +"><i class="fa fa-google-plus"></i></a>
+                    </li><li>
+                        <a href="#" title="Youtube"><i class="fa fa-youtube-play"></i></a>
+                    </li> -->
+                    <li>
+                        <a href="http://github.com/vivtony00/teamform-seed" title="github"><i class="fa fa-github"></i></a>
+                    </li>
+                </ul>
+                <div class="header-top-dropdown">
+                    <div class="btn-group dropdown">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-search"></i> Search</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <form class="search-box" action="#">
+                                    <div class="form-group has-feedback no-margin">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                        <i class="fa fa-search form-control-feedback"></i>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" ng-hide="logedin">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-user"></i> Login</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" >
+                            <li>
+                                <form class="login-form" ng-submit="emailLogin();">
+                                  {{uid}}{{logedin}}
+                                  <div ng-if="message" class="alert alert-info">{{ message }}</div>
+                                  <div ng-if="error" class="alert alert-danger">{{ error }}</div>
+                                    <div class="form-group has-feedback">
+                                        <input id="input_email" type="text" class="form-control" placeholder="Username" ng-model="username" required>
+                                        <i class="fa fa-user form-control-feedback"></i>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <input id="input_password" type="password" class="form-control" placeholder="Password" ng-model="password" required >
+                                        <i class="fa fa-lock form-control-feedback"></i>
+                                    </div>
+                                    <button id="btn_login_email" type="submit" class="btn btn-default btn-block">
+                                        <span class="text">Log In <i class="fa fa-arrow-right"></i></span>
+                                    </button>
+                                    <h3 class="text-center">or</h3>
+                                    <button id="btn_create_email_acc" type="submit" class="btn btn-default btn-block">
+                                        <span class="text">Sign Up <i class="fa fa-arrow-right"></i></span>
+                                    </button>
+                                    <p class="text-center"><a href="#" title="Reset password">Forgot your password?</a></p>
+                                    <h3 class="text-center">Sign in with your social account</h3>
+                                    <ul class="list-inline text-center">
+                                        <li>
+                                            <a href="#" id="btn_login_fb" title="Login with Facebook"><span class="icon-circle-small"><i class="fa fa-facebook"></i></span></a>
+                                        </li><li>
+                                            <a href="#" title="Login with Google +"><span class="icon-circle-small"><i class="fa fa-google-plus"></i></span></a>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" ng-show="logedin">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-user"></i> {{profile.name}}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" >
+                            <a href="profile.html"><img src="{{profile.pic}}" class="img-responsive img-circle " alt="profile picture"></a>
+                          <li>
+                            <a href="profile.html">Profile</a>
+                          </li>
+                          <li>
+                            <button id="btn_login_out" type="submit" class="btn btn-default btn-block" ng-click="signOut();">Logout</button>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" title="TeamforM">
+                    <i class="glyphicon glyphicon-tower" aria-hidden="true"></i><span class="yellow">T</span>eamfor<span class="yellow">M</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <div class="standard-section section-promo section-counter" id="counter" ng-controller="TeamCtrl">
+        <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="triangle triangle-down" data-100p-top="bottom[swing]:-70px" data-75p-top="bottom[swing]:-40px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="overlay"></div>
+        <canvas class="particles" id="particles"></canvas>
+        <div class="container">
+            <div class="text-center">
+                <div class="row">
+                    <h1> </h1>
+                 </div>
+                <div class="row">
+                    <h1> </h1>
+                 </div>
+                    <div class="row">
+                    <h1> </h1>
+                 </div>
+                <div class="row">
+                    <h1> </h1>
+                 </div>
+                <h2 class="digit-header">Team Page</h2>
+                <div class="row text-left">
 
 
-                  </div>
+
+ <!--added by Eric-->
 
 
-				  <div class="row">
-					  <strong>Preferred Team Size: </strong>
-					  <span>
-						 <span class="badge">
-						   {{param.currentTeamSize}}</span>
+                  <!--   <label for="inputTeamName" class="control-label">Team Name</label>
+     -->
+                 <h3>Your Team</h3>
+                 <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+                 <!-- <div> -->
+                   <div class="row">
+                     <div class="col-xs-12 col-sm-6 col-md-12">
+                       <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
+                         <div class="row">
+                           <div class="col-sm-8 col-md-4">
+                             <!-- <button type="button" class="btn btn-default" ng-click="autoadd()"  >AutoAdd</button> -->
+                              <h4> <label for="inputTeamName" class="control-label">Team Name</label> </h4>
+                               <br>
+                      					 <div class="row">
+                      						 <div class="col-md-8 col-xs-8">
+                      							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">
+                      						 </div>
+		                             </div>
 
-						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
+                               <div class="row">
+                                   <h1></h1>
+                               </div>
 
-						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
+                              <div class="row">
+                                  <div class="col-md-8 col-xs-8">
+                      					  <strong>   Team Size: </strong>
+                      					  <span>
+                      						 <span class="badge">
+                      						   {{param.currentTeamSize}}</span>
+                      						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);" style="color:black"></span></button>
+                      						 <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);" style="color:black"></span></button>
+                    					    </span>
+                      				   </div>
+                              </div>
+                           <div class="row">
+                               <h1></h1>
+                            </div>
+                            <span class="pull-right">
+                              <button type="button" class="btn btn-default" ng-click="createteam();"  ><i class="fa fa-plus"></i>Add</button>
+                              <button type="button" class="btn btn-default" ng-click="loadFunc();" ><i class="fa fa-download"></i>Load</button>
+                            </span>
+                           </div>
+                           <div class="col-sm-6 col-md-6">
+                             <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{param.teamMembers.length+param.teamLeaders.length}} / {{param.currentTeamSize}}</span>
+                             <h4>Description</h4>
+                             <input type="text" class="form-control" ng-model="param.desc">
+                             <div class="row">
+                              <i class="glyphicon glyphicon-king"></i> wanted:
+
+                              <select class="selectpicker" ng-model="param.wantedHoroscopes" style="width:120px; color:black">
+                               <option>King</option>
+                               <option>Queen</option>
+                               <option>Knight</option>
+                               <option>Bishop</option>
+                               <option>Rook</option>
+                              <option>Pawn</option>
+                              </select>
+                            </div>
+                            <div class="row">
+                                   <i class="glyphicon glyphicon-star"></i> wanted:
+                              <select class="selectpicker" ng-model="param.wantedHoroscopes" style="width:120px; color:black">
+
+                               <option>Aries</option>
+                               <option>Taurus</option>
+                               <option>Gemini</option>
+                               <option>Cancer</option>
+                               <option>Leo</option>
+                               <option>Virgo</option>
+                               <option>Libra</option>
+                               <option>Scorpio</option>
+                               <option>Sagittarius</option>
+                               <option>Capricorn</option>
+                               <option>Aquarius</option>
+                               <option>Pisces</option>
+                              </select>
+                           </div>
+                           </div>
+                           <div class="col-sm-6 col-md-12">
+                             <div class="row nav">
+                               <div class="col-md-12" style="margin: 0px;">
+                                 <hr style="margin-bottom: 5px;margin-top: 5px;">
+                                 <!-- members:
+                                 <span ng-repeat="member in param.teamMembers">
+                                   {{member.$id}}
+                                 </span> -->
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+
+               <!-- <div ng-show="!(teams| filter:searchText).length">No Such Team</div> -->
+                    <h3>Promote Your Group!</h3>
+
+                 <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+                   <div class="row">
+                     <div class="col-xs-12 col-sm-6 col-md-12">
+                       <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
+                         <div class="row">
+                           <div class="col-xs-6 col-md-5 col-xs-offset-2 col-md-offset-3">
+                             <input type="text" class="form-control" placeholder="Enter title!" ng-model="param.title"><div></div>
+  			                     <input type="text" class="form-control" placeholder="Enter your requirement!" ng-model="param.advertisement">
+                           </div>
+                           <div class="col-xs-2 col-md-1">
+              						   <button type="button" class="btn btn-default" ng-click="advertise();" ><strong>Promote!</strong></button>
+    					             </div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
 
 
-					   </span>
-				   </div>
-				   <div class = "row">
-				   <div class="col-md-8 col-xs-8">
-						<strong>Promote Your Group!</strong>
-						<input type="text" class="form-control" placeholder="Enter title!" ng-model="param.title"><div></div>
-						<input type="text" class="form-control" placeholder="Enter your requirement!" ng-model="param.advertisement">
-					</div>
-				   <div class="col-md-1 col-xs-1">
-						   <button type="button" class="btn btn-primary" ng-click="advertise();" >Promote!</button>
-					</div>
-
-                  </form>
 
 
-				<div class="row">
-                  <div class="col-sm-6">
-                     <h4>Team members</h4>
-                     <!-- TODO: Show the current team member list -->
-                     <div>
-                        <span>
-                         <select ng-model="" ng-change="setPLeader(x)" ng-options="x for x in param.teamLeader" id="selectLeaderToBeChanged">
-                          <option value="" >Leader to Member</option>
-                         </select>
-                         &nbsp;
 
-                         <select ng-model="" ng-change="setNLeader(y)" ng-options="y for y in param.teamMembers" id="selectMemberToChange">
-                          <option value="" >Member to Leader</option>
-                         </select>
-                        </span>
-                        <button type="submit" ng-click="changeleader(pLeader, nLeader)" >Submit</button>
 
-                      </div>
-                     <br>
+               <!-- <div ng-show="!(teams| filter:searchText).length">No Such Team</div> -->
+                     <h3>Team Member</h3>
 
-           <div ng-repeat="member in param.teamMembers">
-            <button type="button" class="btn" ng-click="removeMember(member);">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
-            </button>
-            <span style="float:right"><button type="button" class="btn btn-primary" ng-click="addleader(member);" >Add Leader</button></span>
-            <br><br>
+                 <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+                   <div class="row">
+                     <div class="col-xs-12 col-sm-6 col-md-12">
+                       <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
+                        <div class="row" style="margin-left: 10px;">
+                         <div class="row">
+                           <div class="row">
+
+
+
+                  <div class="col-sm-4 col-md-4">
+                    <h4>Team Leader</h4>
+                    <!-- TODO: Show the current team member list -->
+                    <br>
+
+          <div ng-repeat="leader in param.teamLeaders">
+            <div class="row">
+              <div class="btn-group">
+                   <button type="button" class="btn btn-warning" ng-click="">
+                     <span  aria-hidden="true"></span> {{leader.name}} <img ng-src="{{leader.pic}}" height="20" width="20" class="img-circle"></img>
+                   </button>
+                   <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <span class="caret"></span>
+                     <span class="sr-only">Toggle Dropdown</span>
+                   </button>
+                   <ul class="dropdown-menu">
+                     <li><a ng-href="/profile.html?uid={{leader.uid}}" target="_blank">Profile</a></li>
+                   </ul>
+                 </div>
            </div>
+          </div>
 
-					 <div ng-repeat="member in param.teamMembers">
-						<button type="button" class="btn" ng-click="removeMember(member);">
+                                 <h4>Team Member</h4>
+                                 <!-- TODO: Show the current team member list -->
+                                 <div>
+                                   <div class="row">
+                                     <select ng-model="" ng-change="setPLeader(x)" ng-options="x for x in param.teamLeader" id="selectLeaderToBeChanged" style="color:black">
+                                      <option value="" >Leader to Member</option>
+                                     </select>
+                                     &nbsp;
+                                   </div>
+                                   <div class="row">
+                                     <select ng-model="" ng-change="setNLeader(y)" ng-options="y for y in param.teamMembers" id="selectMemberToChange"style="color:black">
+                                      <option value="" >Member to Leader</option>
+                                     </select>
+                                   </div>
+                                   <div class="row">
+                                    <button type="submit" class="btn btn-default" ng-click="changeleader(pLeader, nLeader)" >Submit</button>
+                                  </div>
+                                  </div>
+                                 <br>
+
+                       <div ng-repeat="member in param.teamMembers">
+                         <div class="row">
+                           <div class="btn-group">
+                                <button type="button" class="btn btn-warning" ng-click="removeMember(member.uid)">
+                                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member.name}} <img ng-src="{{member.pic}}" height="20" width="20" class="img-circle"></img>
+                                </button>
+                                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <span class="caret"></span>
+                                  <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a ng-href="/profile.html?uid={{member.uid}}" target="_blank">Profile</a></li>
+                                  <li><a ng-click="addleader(member.uid)" class="menu_links" onmouseover="" style="cursor: pointer;">Add Leader</a></li>
+                                </ul>
+                              </div>
+                        </div>
+                       </div>
+
+					 <!-- <div ng-repeat="member in param.teamMembers">
+						<button type="button" class="btn btn-default" ng-click="removeMember(member);">
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
 						</button>
-					 </div>
+					 </div> -->
 
                   </div>
 
-                  <div class="col-sm-6">
+                  <div class="col-sm-3">
                      <h4>Requests received:</h4>
 
                      <!--TODO: Show the requests -->
 
-					 <div ng-repeat="r in requests">
-						<button type="button" class="btn" ng-click="processRequest(r);">
-							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
-						</button>
-					 </div>
+            					 <div ng-repeat="r in requests">
+                         <div class="btn-group">
+                              <button type="button" class="btn btn-warning" ng-click="processRequest(r.uid)">
+                                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r.name}} <img ng-src="{{r.pic}}" height="20" width="20" class="img-circle"></img>
+                              </button>
+                              <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a ng-href="/profile.html?uid={{r.uid}}" target="_blank">Profile</a></li>
+                              </ul>
+                            </div>
+            						<!-- <button type="button" class="btn btn-default" ng-click="processRequest(r.uid);">
+            							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r.name}}<img ng-src="{{r.pic}}" height="20" width="20"></img>
+            						</button> -->
+            					 </div>
                   </div>
-				</div>
-            </div>
 
-            <div class="col-md-4 col-xs-4 text-left">
-					<h3>All teams:</h3>
-					<ul ng-repeat="t in team">
-						<li>
+                  <div class="col-sm-5" >
+                    <h4>Chat Room</h4>
+                      <div id="firechat-wrapper"></div>
+                      <script type="text/javascript">
 
-							User ID: {{t.$id}}  <br>
-							Preferred team size: <span class="badge">{{t.currentTeamSize}}</span> <br>
-							Current team members: {{t.teamMembers}}
+                        // Initialize Firebase SDK
 
-						</li>
+                     var config = {
+                        apiKey: "AIzaSyAquft9UUOycldBxHWyG2toWPEsUgbOW34",
+                        authDomain: "team-long-time-no-name.firebaseapp.com",
+                        databaseURL: "https://team-long-time-no-name.firebaseio.com",
+                          storageBucket: "team-long-time-no-name.appspot.com",
+                        messagingSenderId: "7595823211"
+                     };
 
-					</ul>
+                        firebase.initializeApp(config);
 
-			</div>
+                        // Get a reference to the Firebase Realtime Database
+                        var chatRef = firebase.database().ref('chatroom');
+
+                        // Create an instance of Firechat
+                        var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
+
+                        // Listen for authentication state changes
+                        firebase.auth().onAuthStateChanged(function(user) {
+                          if (user) {
+                            // If the user is logged in, set them as the name they use in profile
+
+                            //get the latest name in 'profile'
+                            var userDataRef = firebase.database().ref("profile/" + user.uid+ "/name");
+
+                            //get the username used last time in chatroom
+                            var lastUsernameInChatroomPath = firebase.database().ref("chatroom/users/" + user.uid+ "/name");
+                            var lastUsernameInChatroom;
+                            lastUsernameInChatroomPath.once("value").then(function(snapshot){
+                              lastUsernameInChatroom = snapshot.val();
+                            });
+
+                            userDataRef.on("value", function(snapshot){
+                              //automatically change user name in chatroom database whenever the name is changed on 'profile'
+                              //or when user first time uses chatroom
+
+                              //if username is changed, change the name in chatroom database
+                              if(snapshot.val() != lastUsernameInChatroom)
+                              {
+                                firebase.database().ref("chatroom/users/" + user.uid).set({
+                                  name: snapshot.val()
+                                });
+                              }
+                              //set up user for entering chatroom with latest name
+                              chat.setUser(user.uid, snapshot.val());
+                            });
+                            //chat.setUser(user.uid, userDataRef.child("name")); //"Anonymous" + user.uid.substr(10, 8)); //user.name);//
+                          } else {
+                            // If the user is not logged in, sign them in anonymously
+                            firebase.auth().signInAnonymously().catch(function(error) {
+                              console.log("Error signing user in anonymously:", error);
+                            });
+                          }
+                        });
+                      </script>
+
+                  </div>
+
+
+
+				            </div>
+                  </div>
+                </div>
+
          </div>
 
 
-       </div>
-   </div>
-   <!-- JavaScript of this page -->
-   <script type="text/javascript">
-    var pLeader, nLeader;
+                                 <!-- <button class="btn btn-default"><i class="fa fa-smile-o fa-lg"></i> 62</button>
+                                 <button class="btn btn-default"><i class="fa fa-heart-o fa-lg"></i> 54</button>
+                                 <button class="btn btn-default"><i class="fa fa-thumbs-o-up fa-lg"></i> 67</button> -->
 
-    function storePleader() {
-      pLeader = document.getElementById("selectLeaderToBeChanged");
-      document.getElementById('pLeaderV').innerHTML = pLeader[pLeader.selectedIndex].value;
-     }
-
-     function storeNleader() {
-      nLeader = document.getElementById("selectMemberToChange");
-      document.getElementById('nLeaderV').innerHTML = nLeader[nLeader.selectedIndex].value;
-     }
-
-   </script>
-
-   <!-- Angular and Angular-route libraries (v1.5.7) -->
-   <script src="lib/angular.min.js"></script>
-   <script src="lib/angular-route.min.js"></script>
-
-   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-   <script src="lib/firebase.js"></script>
-   <script src="lib/angularfire.min.js"></script>
+                         </div>
+                       </div>
+                     </div>
 
 
 
+            <h3>All Teams</h3>
+            <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-10p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+              <div ng-repeat="team in team">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-12">
+                    <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
+                      <div class="row">
+                        <div class="col-sm-6 col-md-2">
+                         <div ng-repeat="teamleader in team.teamLeaders">
+                           <a ng-href="/profile.html?uid={{teamleader.uid}}">
+                              <img src="{{teamleader.pic}}" class="img-circle img-responsive" draggable="false" />
+                           </a>
+                         </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                          <h4>{{team.$id}}</h4>
+                          <p>
+                            <i class="glyphicon glyphicon-star"></i> wanted:{{team.wantedHoroscopes}} <br />
+                            <i class="glyphicon glyphicon-education"></i> wanted:
+                            <span ng-repeat="skill in team.wantedSkills">
+                              {{skill}}
+                            </span>
+                            <br />
+                            <i class="glyphicon glyphicon-king"></i> wanted: {{team.wantedPersonalities}}
+                          </p>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                          <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{team.teamMembers.length+team.currentTeamLeaderSize}} / {{team.currentTeamSize}}</span>
+                          <h4>Description</h4>
+                          <p>{{team.desc}}</p>
 
-   <script src="js/team.js"></script>
-   <script src="js/profile.js"></script>
-   <!-- <script src="js/autoadd.js"></script> -->
+                        </div>
+                        <div class="col-sm-6 col-md-12">
+                          <div class="row nav">
+                            <div class="col-md-12" style="margin: 0px;">
+                              <hr style="margin-bottom: 5px;margin-top: 5px;">
+                              members:
+                              <span ng-repeat="member in team.teamMembers">
+                                <a ng-href="/profile.html?uid={{member.uid}}"><img ng-src="{{member.pic}}" height="50" width="50" class="img-circle"></img></a>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                 <!-- <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+                   <div class="row">
+                     <div class="col-xs-12 col-sm-6 col-md-12">
+                       <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
+                        <div class="row" style="margin-left: 0px;">
+                					<h4>All Teams</h4>
+                					<ul ng-repeat="t in team">
+                						<li>
+                							User ID: {{t.$id}}  <br>
+                							Preferred team size: <span class="badge">{{t.currentTeamSize}}</span> <br>
+                							Current team members: {{t.teamMembers}}
+                						</li>
+                					</ul>
+                        </div>
+                      </div>
+                     </div>
+                   </div>
+                 </div> -->
+               </div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-   </body>
+    <!-- <div class="standard-section section-about" id="about">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">what it is</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">About</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-info"></i></div>
+            </div>
+            <p class="text-center lead">A real-time online team forming app for any event</p>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-toggle="tooltip" data-placement="top" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1" title="
+                            <ul>
+                                <li><span>creating an event</span></li>
+                                <li><span>minimum team size</span></li>
+                                <li><span>maximum team size</span></li>
+                            </ul>
+                        ">
+                            <span class="icon-circle-inner">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Administrator</h3>
+                        <p>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</p>
+                        <p>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</p>
+                        <p class="standard-lines no-margin" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1"><strong>Easy</strong> to manage your event!</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-toggle="tooltip" data-placement="top" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1" title="
+                            <ul>
+                                <li><span>Creative</span></li>
+                                <li><span>Experimental</span></li>
+                                <li><span>Perfect</span></li>
+                            </ul>
+                        ">
+                            <span class="icon-circle-inner">
+                                <i class="fa fa-hand-pointer-o" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Team leader</h3>
+                        <p>Be able to add and remove requests which made by members</p>
+                        <p>Once a member joins the team, all his/her requests will be deleted</p>
+                        <p class="standard-lines no-margin" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1">I am <strong>leading</strong> the world!</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-toggle="tooltip" data-placement="top" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1" title="
+                            <ul>
+                                <li><span>Programming</span></li>
+                                <li><span>Graphic design</span></li>
+                                <li><span>Perfect</span></li>
+                            </ul>
+                        ">
+                            <span class="icon-circle-inner">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Member</h3>
+                        <p>Be able to request to join multiple teams</p>
+                        <p class="standard-lines no-margin" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1">We <strong>can</strong> do it!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="standard-section section-promo section-flow" id="flow">
+        <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="triangle triangle-down" data-100p-top="bottom[swing]:-70px" data-75p-top="bottom[swing]:-40px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">short instruction</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Getting started</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-power-off"></i></div>
+            </div>
+            <p class="text-center lead">Quisque condimentum vehicula dolor, sit amet mollis metus varius in. Duis eu gravida massa. Nulla id egestas mi. Etiam sit amet odio aliquet, malesuada velit nec, mollis justo. Integer porttitor nibh eu dignissim porttitor. Etiam dictum dolor metus, nec ultrices nulla facilisis ac. Maecenas congue arcu eget tempor ornare.</p>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-100p-top="transform[swing]:translateY(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                            <span class="icon-circle-inner">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Download</h3>
+                        <p class="no-margin">Download our game from <a href="#" title="google">google.com</a>. You can choose portable or installer version.</p>
+                        <img class="arrow arrow-up hidden-xs" src="img/arrow-1.png" alt="arrow" data-100p-top="transform[swing]:rotate(45deg);opacity[swing]:0" data-75p-top="transform[swing]:rotate(0deg);opacity[swing]:1">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-100p-top="transform[swing]:translateY(-65px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                            <span class="icon-circle-inner">
+                                <i class="fa fa-hdd-o" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Install</h3>
+                        <p class="no-margin">Install the game in your hard drive. The game size is only 2 GB.</p>
+                        <img class="arrow arrow-down hidden-xs" src="img/arrow-2.png" alt="arrow" data-100p-top="transform[swing]:rotate(-45deg);opacity[swing]:0" data-75p-top="transform[swing]:rotate(0deg);opacity[swing]:1">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-100p-top="transform[swing]:translateY(-100px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                            <span class="icon-circle-inner">
+                                <span class="main-icon glyphicon glyphicon-play"></span>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Play</h3>
+                        <p class="no-margin">Create your own character and have fun during killing monster!.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="standard-section section-team" id="team">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">our people</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Team</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-users" aria-hidden="true"></i></div>
+            </div>
+            <p class="text-center lead">Team Long Time No name</p>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateX(-50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <img class="team-image" src="img/cc_v1.png" alt="Person"  height="300" width="300">
+                        <div class="team-description">
+                            <h3>Cheung Chi Chung</h3>
+                            <p><i class="fa fa-briefcase"></i> CEO &amp; Founder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateY(-50px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                        <img class="team-image" src="img/lion.png" alt="Person" height="300" width="250">
+                        <div class="team-description">
+                            <h3>Lion</h3>
+                            <p><i class="fa fa-briefcase"></i> Programmer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                        <img class="team-image" src="img/bobby.png" alt="Person" height="300" width="250">
+                        <div class="team-description">
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-sm-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <img class="team-image" src="img/eric.png" alt="Person" height="300" width="250">
+                        <div class="team-description">
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col-sm-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <img class="team-image" src="img/wasin_v1.png" alt="Person" height="300" width="230">
+                        <div class="team-description">
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col-sm-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <img class="team-image" src="img/victor.png" alt="Person" height="300" width="300">
+                        <div class="team-description">
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                 <div class="col-sm-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <img class="team-image" src="img/Tiv.png" alt="Person" height="300" width="400">
+                        <div class="team-description">
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> -->
+    <footer class="footer text-center" id="follow-us">
+        <div class="container">
+            <ul class="list-inline">
+                <li>
+                    <a href="http://github.com/vivtony00/teamform-seed" title="github"><i class="fa fa-github"></i></a>
+                </li>
+            </ul>
+            <p> &copy; 2016 <a href="http://jakubkwarcinski.pl" title="Team Long Time No name">Team Long Time No name</a></p>
+            <p class="text-center"><small>*Photos courtesy of and copyright Free Range Stock, <a href="http://www.freerangestock.com">www.freerangestock.com</a></small></p>
+        </div>
+    </footer>
+
+    <div id="toTop" class="to-top">
+        <a href="#" class="To the top">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </div>
+
+    <div class="modal fade" id="order-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Order form</h3>
+                </div>
+                <form method="post" action="#">
+                    <div class="modal-body">
+                        <blockquote>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sagittis leo ut sapien tristique adipiscing. Nunc vitae nisi id ipsum congue ullamcorper.</p>
+                            <footer>Bill Archway <cite title="Source Title">100 games you must have</cite></footer>
+                        </blockquote>
+                        <div class="form-group has-feedback">
+                            <label for="order-first-name">First Name:</label>
+                            <input type="text" class="form-control" id="order-first-name" placeholder="Enter first name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="order-last-name">Last Name:</label>
+                            <input type="text" class="form-control" id="order-last-name" placeholder="Enter last name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="order-email">Email:</label>
+                            <input type="email" class="form-control" id="order-email" placeholder="Enter email">
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="order-phone">Phone:</label>
+                            <input type="text" class="form-control" id="order-phone" placeholder="Enter phone">
+                            <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="order-company">Company:</label>
+                            <input type="text" class="form-control" id="order-company" placeholder="Your company">
+                            <span class="glyphicon glyphicon-home form-control-feedback"></span>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Yes, I want to get the newsletter
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-system btn-default"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Order now</button><button type="button" class="btn btn-system btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+
+
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <!-- jQuery parallax -->
+    <script type="text/javascript" src="js/jquery.parallax-1.1.3-min.js"></script>
+
+    <!-- jQuery countdown -->
+    <script type="text/javascript" src="js/countdown.min.js"></script>
+
+    <!-- Lightbox -->
+    <script type="text/javascript" src="lightbox/js/lightbox.min.js"></script>
+
+    <!-- skrollr -->
+    <script type="text/javascript" src="js/skrollr.min.js"></script>
+
+    <!-- raphael -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+
+    <!-- morris charts -->
+    <script type="text/javascript" src="js/morris.min.js"></script>
+
+    <!-- particles -->
+    <script src="js/TweenLite.min.js"></script>
+    <script src="js/EasePack.min.js"></script>
+    <script src="js/rAF.min.js"></script>
+    <script src="js/particles.min.js"></script>
+
+    <!-- Custom javascript -->
+    <script type="text/javascript" src="js/custom.min.js"></script>
+
+    <!-- Main page javascript -->
+    <script type="text/javascript" src="js/main.min.js"></script>
+
+    <!-- Angular and Angular-route libraries (v1.5.7) -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="lib/firebase.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <!-- Log in control -->
+    <script src="js/index.js"></script>
+    <script src="js/team.js"></script>
+    <script src="js/firechat.js"></script>
+
+</body>
 </html>
