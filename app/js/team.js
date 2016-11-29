@@ -87,7 +87,7 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth,$timeout)
 					$scope.team[team].teamMembers[member] = getProfile(uid);
 					// member.profile.$loaded().then(function(aa){console.log(aa);});
 				}
-				
+
 			}
 		})
 
@@ -494,7 +494,7 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth,$timeout)
 			ref.set(newData, function(){
 				// complete call back
 				//alert("data pushed...");
-
+				window.open("https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fec2-35-161-58-179.us-west-2.compute.amazonaws.com%2Fmember.html%3Fq%3DCOMP3111-L1&picture=http%3A%2F%2Fec2-35-161-58-179.us-west-2.compute.amazonaws.com%2Fimg%2Fstar_v2.jpg&title=Teamform+-+Team&caption=&quote=&description=Come+and+Join+our+team%21", "_blank");
 				// Finally, go back to the front-end
 				window.location.href= "index.html";
 			});
