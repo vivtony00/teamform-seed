@@ -8,7 +8,7 @@ $(document).ready(function(){
 		$('#member_page_controller').show();
 	}
 	var o = new Date
-		, r = ("0" + (o.getDate() + 3)).slice(-2)
+		, r = ("0" + (o.getDate() + 1)).slice(-2)
 		, s = ("0" + (o.getMonth() + 1)).slice(-2)
 		, n = o.getFullYear()
 		, i = n + "/" + s + "/" + r;
